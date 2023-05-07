@@ -12,45 +12,88 @@
 
         <p class="mt-1">Tu próximo auto a un paso...</p>
 
-        <form>
-            <div class="input-group mb-3">
+        <form class="needs-validation" [formGroup]="formSignUp" novalidate>
+
+            <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">
                     <i class="bi bi-envelope-fill"></i>
                 </span>
-                <input type="text" class="form-control" id="email" placeholder="Email">
+                <input type="text" class="form-control" id="email" formControlName="email" placeholder="Email"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['email'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['email'].valid"
+                >
+                <div class="invalid-feedback">
+                    El email no corresponde a un formato válido (ej: mail@mail.com)
+                </div>
             </div>
+
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">
                     <i class="bi bi-lock-fill"></i>
                 </span>
-                <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Contraseña"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['password'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['password'].valid"
+                >
+                <div class="invalid-feedback">
+                    La contraseña no puede estar vacía.
+                </div>
             </div>
-            <div class="input-group mb-3">
+
+            <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">
                     <i class="bi bi-lock-fill"></i>
                 </span>
-                <input type="password" class="form-control" id="passwordConfirm" placeholder="Confirmar contraseña">
+                <input type="password" class="form-control" id="passwordConfirm" formControlName="passwordConfirm" placeholder="Confirmar contraseña"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['passwordConfirm'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['passwordConfirm'].valid"
+                >
+                <div class="invalid-feedback">
+                    Las contraseñas no coinciden.
+                </div>
             </div>
-            <div class="input-group mb-3">
+
+            <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">
                     <i class="bi bi-person-vcard-fill"></i>
                 </span>
-                <input type="text" class="form-control" id="firstName" placeholder="Nombre">
+                <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Nombre"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['firstName'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['firstName'].valid"
+                >
+                <div class="invalid-feedback">
+                    El nombre no puede estar vacío.
+                </div>
             </div>
-            <div class="input-group mb-3">
+
+            <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">
                     <i class="bi bi-person-vcard-fill"></i>
                 </span>
-                <input type="text" class="form-control" id="lastName" placeholder="Apellido">
+                <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Apellido"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['lastName'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['lastName'].valid"
+                >
+                <div class="invalid-feedback">
+                    El apellido no puede estar vacío.
+                </div>
             </div>
-            <div class="input-group mb-3">
+
+            <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">
                     <i class="bi bi-geo-alt-fill"></i>
                 </span>
-                <input type="text" class="form-control" id="address" placeholder="Dirección">
+                <input type="text" class="form-control" id="address" formControlName="address" placeholder="Dirección"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['address'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['address'].valid"
+                >
+                <div class="invalid-feedback">
+                    La dirección no puede estar vacía.
+                </div>
             </div>
+
             <div class="d-grid gap-2">
-                <button class="btn btn-primary" type="submit">Registrarse</button>
+                <button class="btn btn-primary" (click)="onSubmit();">Registrarse</button>
             </div>
 
         </form>
