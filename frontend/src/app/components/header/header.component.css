@@ -1,0 +1,7 @@
+.boton-registro {
+    color: white;
+}
+
+.boton-registro:hover {
+    color: gray;
+}
