@@ -13,7 +13,7 @@
     </thead>
     <tbody>
 
-      <tr *ngFor="let product of cartItems" class="align-middle">
+      <tr *ngFor="let product of (cartProducts$ | async)" class="align-middle">
 
         <!-- Descripción -->
         <td>
@@ -40,7 +40,7 @@
         <!-- Eliminar -->
         <td>
           <!-- TODO: POST a /cart/delete con el id al backend? -->
-          <button type="button" class="btn btn-danger">
+          <button (click)="removeProduct(product)" type="button" class="btn btn-danger">
             <i class="bi bi-x-circle"></i>
             Eliminar
           </button>
@@ -54,10 +54,9 @@
 
 <!-- Total del carrito -->
 <div class="row">
-
 </div>
 
 <!-- Confirmación del carrito -->
 <div class="d-grid gap-2 d-md-flex justify-content-md-end mx-5 my-5">
-  <button class="btn btn-primary" type="button">Guardar</button>
+  <button class="btn btn-primary" type="button">Limpiar carrito</button>
 </div>

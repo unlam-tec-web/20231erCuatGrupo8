@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Product } from './Product';
+import { CartService } from 'src/app/services/cart.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -6,28 +9,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-  cartItems: Product[]
+  cartProducts$: Observable<Product[]> | undefined;
 
-  constructor() {
-    this.cartItems = mockProducts;
+  constructor(
+    private cartService: CartService,
+  ) {}
+
+  ngOnInit(): void {
+    this.cartProducts$ = this.cartService.getProducts();
+  }
+
+  removeProduct(product: Product) {
+    this.cartService.removeProduct(product);
   }
 
 }
-
-// TODO: Más adelante traer del backend
-const mockProducts: Product[] = [
-  {id: '0', img: 'https://placehold.co/250x150', name: 'Ford focus', description: 'Todos los papeles al día', category: 'Auto', price: 10000000},
-  {id: '1', img: 'https://placehold.co/250x150', name: 'Amarok', description: 'Todo terreno. En oferta!!!. Necesito la plata', category: 'Pickup', price: 40000000},
-  {id: '2', img: 'https://placehold.co/250x150', name: 'Fiat Palio 1.4', description: 'Nuevo modelo. Muy pocos kms', category: 'Auto', price: 19000000},
-]
-
-interface Product {
-  id: string,
-  img: string,
-  name: string,
-  description: string,
-  category: string, // Tipo auto, pickup, etc(lo pide en el tp)/clasificación
-  price: number
-}
-
-
