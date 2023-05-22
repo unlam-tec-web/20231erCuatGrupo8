@@ -1,4 +1,13 @@
 {
-  "products": [],
-  "subTotal": 0
+  "products": [
+    {
+    "id": "0",
+    "img": "https://placehold.co/250x150",
+    "name": "BMW",
+    "description": "Nuevito, casi 0Km",
+    "category": "Auto",
+    "price": 10000000
+    }
+  ],
+  "subTotal": 10000000
 }

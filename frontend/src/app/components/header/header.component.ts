@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  cartCount$: Observable<number> | undefined
+
+  constructor(
+    private cartService: CartService
+  ) { }
+
+  ngOnInit() {
+    this.cartCount$ = this.cartService.getCount();
+  }
 
 }
