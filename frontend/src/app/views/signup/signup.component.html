@@ -1,0 +1,100 @@
+<div class="row align-items-center justify-content-center mx-0 bg-light">
+    <div class="col-md-7 d-none d-md-block px-0">
+        <img src="./assets/img/signup.jpg" class="img-signup" alt="Persona manejando">
+    </div>
+    <div class="col-md-5 col-sm-12 px-4">
+
+        <h2 class="mt-1 fw-bold">Registro</h2>
+
+        <p class="mt-1">Tu próximo auto a un paso...</p>
+
+        <form class="needs-validation" [formGroup]="formSignUp" novalidate>
+
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">
+                    <i class="bi bi-envelope-fill"></i>
+                </span>
+                <input type="text" class="form-control" id="email" formControlName="email" placeholder="Email"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['email'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['email'].valid"
+                >
+                <div class="invalid-tooltip">
+                    El email no corresponde a un formato válido (ej: mail@mail.com)
+                </div>
+            </div>
+
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">
+                    <i class="bi bi-lock-fill"></i>
+                </span>
+                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Contraseña"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['password'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['password'].valid"
+                >
+                <div class="invalid-tooltip">
+                    La contraseña debe contener al menos 1 mayúscula, 1 minúscula, 1 dígito y longitud mínima de 8 caracteres sin espacios en blanco.
+                </div>
+            </div>
+
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">
+                    <i class="bi bi-lock-fill"></i>
+                </span>
+                <input type="password" class="form-control" id="passwordConfirm" formControlName="passwordConfirm" placeholder="Confirmar contraseña"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['passwordConfirm'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['passwordConfirm'].valid"
+                >
+                <div class="invalid-tooltip">
+                    Las contraseñas no coinciden.
+                </div>
+            </div>
+
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">
+                    <i class="bi bi-person-vcard-fill"></i>
+                </span>
+                <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Nombre"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['firstName'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['firstName'].valid"
+                >
+                <div class="invalid-tooltip">
+                    El nombre no puede estar vacío.
+                </div>
+            </div>
+
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">
+                    <i class="bi bi-person-vcard-fill"></i>
+                </span>
+                <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Apellido"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['lastName'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['lastName'].valid"
+                >
+                <div class="invalid-tooltip">
+                    El apellido no puede estar vacío.
+                </div>
+            </div>
+
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">
+                    <i class="bi bi-geo-alt-fill"></i>
+                </span>
+                <input type="text" class="form-control" id="address" formControlName="address" placeholder="Dirección"
+                [class.is-invalid]="wasSubmitted && formSignUp.controls['address'].invalid"
+                [class.is-valid]="wasSubmitted && formSignUp.controls['address'].valid"
+                >
+                <div class="invalid-tooltip">
+                    La dirección no puede estar vacía.
+                </div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary" (click)="onSubmit();" [disabled]="loading">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Registrarse
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
