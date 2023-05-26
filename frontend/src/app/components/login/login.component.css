@@ -1,0 +1,3 @@
+.input:focus{
+    box-shadow: 0 0px 0px #666364 inset, 0 0 8px #666364;
+}
