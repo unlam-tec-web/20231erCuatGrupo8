@@ -4,6 +4,6 @@ const buscarTodos = async () => {
     return await Product.find({});
 }
 
-const productRepository = {buscarTodos};
+const productRepository = { buscarTodos };
 
-module.exports = {productRepository};
+module.exports = { productRepository };

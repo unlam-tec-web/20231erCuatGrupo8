@@ -11,12 +11,12 @@ app.use("/api/products", router);
 
 mongoose
     .connect(URI)
-    .then(()=>{
+    .then(() => {
         app.listen(port, () => {
             console.log(`Servidor iniciado en el puerto ${port}`);
-          });
+        });
     })
-    .catch((e)=>{
+    .catch((e) => {
         console.log(e);
     })
 

@@ -1,4 +1,4 @@
-const {productService} = require("../service/product.service");
+const { productService } = require("../service/product.service");
 
 const buscarTodos = async (req, res) => {
     try {
@@ -6,8 +6,8 @@ const buscarTodos = async (req, res) => {
         console.log(products);
         res.status(200).json(products);
     } catch (error) {
-        res.status(500).json({error: error.message});
+        res.status(500).json({ error: error.message });
     }
 }
 
-module.exports = {buscarTodos};
+module.exports = { buscarTodos };
