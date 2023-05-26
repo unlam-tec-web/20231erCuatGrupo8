@@ -10,7 +10,7 @@ import { SignupComponent } from './views/signup/signup.component';
 import { HomeComponent } from './views/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CartComponent } from './views/cart/cart.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './views/login/login.component';
 
 @NgModule({
   declarations: [
