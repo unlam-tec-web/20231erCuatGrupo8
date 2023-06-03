@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CartComponent } from './views/cart/cart.component';
 import { LoginComponent } from './views/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { CarouselModule } from '@coreui/angular';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -22,14 +24,16 @@ import { MenuComponent } from './components/menu/menu.component';
     HomeComponent,
     CartComponent,
     LoginComponent,
-    MenuComponent
+    MenuComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]
