@@ -10,6 +10,7 @@ const routes: Routes = [
   {path: 'registro', component: SignupComponent},
   {path: 'carrito', component: CartComponent},
   {path: 'ingreso', component: LoginComponent},
+  {path: '**', redirectTo: '', pathMatch: 'full'} // para ruteos incorrectos vaya al home
 ];
 
 @NgModule({
