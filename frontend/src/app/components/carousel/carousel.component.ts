@@ -8,9 +8,9 @@ import { Component } from '@angular/core';
 export class CarouselComponent {
     public slides = 
       [
-        { src: '../assets/img/logo.png', title: 'Ford focus' },
-        { src: '../assets/img/signup.jpg', title: 'Amarok'},
-        { src: 'https://placehold.co/250x150', title: 'Fiat Palio 1.4'}
+        { src: '../assets/img/carousel1.jpg', title: 'auto1' },
+        { src: '../assets/img/carousel2.jpg', title: 'auto2'},
+        { src: '../assets/img/carousel3.jpg', title: 'auto3'}
       ];
 
  
