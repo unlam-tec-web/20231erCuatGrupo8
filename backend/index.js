@@ -8,8 +8,8 @@ const port = 3000;
 const URI = "mongodb+srv://tallerweb2:OU1FiMJesXKK6SvO@carcash.gw7cpnl.mongodb.net/?retryWrites=true&w=majority"
 
 app.use(express.json());
-app.use("/api/products", router);
 app.use(cors());
+app.use("/api/products", router);
 
 mongoose
     .connect(URI)
@@ -21,7 +21,5 @@ mongoose
     .catch((e) => {
         console.log(e);
     })
-
-
 
 module.exports = app;
