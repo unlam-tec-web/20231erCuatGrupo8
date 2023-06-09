@@ -21,4 +21,14 @@ const agregarProducto = async (req, res) => {
     }
 }
 
-module.exports = { buscarTodos, agregarProducto };
+const eliminarProducto = async (req, res) => {
+    try {
+        const ID = req.params.id;
+        await productService.eliminarProducto(ID);
+        res.status(200).json("hecho");
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+module.exports = { buscarTodos, agregarProducto, eliminarProducto };
