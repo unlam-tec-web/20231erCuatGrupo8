@@ -8,6 +8,11 @@ const guardarProducto = async (product) => {
     return await Product.create(product);
 }
 
-const productRepository = { buscarTodos, guardarProducto };
+const eliminarProducto = async (id) => {
+    await Product.findById(id); // busco el producto
+    await Product.findOneAndRemove({ _id: id }) // elimino el producto
+}
+
+const productRepository = { buscarTodos, guardarProducto, eliminarProducto };
 
 module.exports = { productRepository };

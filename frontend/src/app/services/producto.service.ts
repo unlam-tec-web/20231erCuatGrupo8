@@ -18,4 +18,8 @@ export class ProductoService {
   guardarProducto(product: Product): Observable<any> {
     return this.http.post(this.url + '/crear', product);
   }
+
+  eliminarProducto(id: string): Observable<any> {
+    return this.http.delete(this.url + '/eliminar/' + id);
+  }
 }

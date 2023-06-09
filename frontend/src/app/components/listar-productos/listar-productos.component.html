@@ -23,23 +23,21 @@
                 <td>{{producto.name}}</td>
                 <td>
                   <a data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <img src="{{producto.img}}" width="60" height="60">
+                    <img src="{{producto.img}}" width="60" height="60" role="button">
                   </a>
                 </td>
                 <td>{{producto.description}}</td>
                 <td>{{producto.category}}</td>
                 <td>{{producto.price}}</td>
                 <td>
-                  <i class="fas fa-trash text-danger"></i>
+                  <i (click)="eliminarProducto(producto._id)" class="fas fa-trash text-danger" role="button"></i>
                 </td>
                 <!-- este modal no se sies una buena practica                      -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                   aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                      <div class="modal-header bg-dark">
-
-                      </div>
+                      <div class="modal-header bg-dark"></div>
                       <div class="modal-body">
                         <img src="{{producto.img}}" class="img-fluid">
                       </div>
@@ -49,11 +47,12 @@
                     </div>
                   </div>
                 </div>
+                <!-- fin del modal -->
               </tr>
             </tbody>
           </table>
-          <button routerLink="/crear-producto" type="button" class="btn btn-info text-white float-end">Agregar
-            auto</button>
+          <button routerLink="/crear-producto" type="button"
+            class="btn btn-info text-white float-end">Agregar auto</button>
           <h5 style="text-align: start; margin-top: 10px;" *ngIf="listaProductos.length == 0">No hay productos para
             mostrar</h5>
         </div>

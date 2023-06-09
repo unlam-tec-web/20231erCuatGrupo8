@@ -41,7 +41,11 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     CarouselModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

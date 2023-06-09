@@ -6,7 +6,7 @@
                     <h3>AGREGAR AUTO</h3>
                 </div>
                 <div class="card-body w-75">
-                    <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()"> <!--Aca algo el binding  -->
+                    <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()" method="post"> <!--Aca algo el binding  -->
                          <!-- Hardcodero la imagen -->
                          <div class="mb-3">
                             <input type="text" formControlName="img" class="form-control"

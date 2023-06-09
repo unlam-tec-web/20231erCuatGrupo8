@@ -47,7 +47,7 @@ export class CrearProductoComponent implements OnInit {
    
     //guardo el producto en la bd
     this._productoService.guardarProducto(PRODUCT).subscribe(data => {
-      this.toastr.success('Felicitaciones!', 'Auto agregado correctamente', {timeOut: 3000,}); //cartel exito
+      this.toastr.success('Felicitaciones!', 'Auto agregado correctamente'); //cartel exito
       this.router.navigate(['/']);
     }, error => {
       console.log(error);
