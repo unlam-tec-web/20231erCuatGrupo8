@@ -4,6 +4,11 @@ const buscarTodos = async () => {
     return await productRepository.buscarTodos();
 }
 
-const productService = { buscarTodos };
+const guardarProducto = async (product) => {
+    //validaciones
+    return await productRepository.guardarProducto(product);
+}
+
+const productService = { buscarTodos, guardarProducto };
 
 module.exports = { productService };

@@ -1,10 +1,14 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-
   <span><a routerLink="/" class="text-decoration-none boton-registro"><img width="200" alt="CarCash Logo"
         src="https://www.carcash.com.ar/wp-content/uploads/2022/07/carcash.png" /></a></span>
   <div class="spacer"></div>
 
+  <!-- Botones -->
+  <div>
+    <button routerLink="/listar-producto" type="button" class="btn btn-success text-white m-2">Listar autos</button>
+    <button routerLink="/crear-producto" type="button" class="btn btn-info text-white text-white m-2">Agregar auto</button>
+  </div>
 
   <!-- Acceso al carrito -->
   <a routerLink="/carrito" routerLinkActive="active" class="text-decoration-none px-3">
