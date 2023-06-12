@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent {
   formSignUp!: FormGroup;
-  wasSubmitted: boolean = false; // Flag para saber si el usuario envió el formulario
   loading: boolean = false;
 
   constructor(
@@ -37,13 +36,11 @@ export class SignupComponent {
       lastName: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
     },
-    { validators: PasswordMatchValidator('password', 'passwordConfirm') } as AbstractControlOptions
+      { validators: PasswordMatchValidator('password', 'passwordConfirm') } as AbstractControlOptions
     );
   }
 
   onSubmit() {
-    this.wasSubmitted = true;
-
     if (!this.formSignUp.valid) {
       return
     }
@@ -60,11 +57,12 @@ export class SignupComponent {
           this.router.navigate(['/']);
         },
         // Si hay error en la petición
-        error: (err: any) => { alert('El email ya existe. Debe utilizar otro')},
+        error: (err: any) => { alert('El email ya existe. Debe utilizar otro') },
         // complete: () => { }
       }
     )
 
+    // setTimeout(() => this.loading == false, 2000)
     this.loading = false; // Anula spinner
   }
 }
