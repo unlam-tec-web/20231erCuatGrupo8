@@ -34,18 +34,20 @@
                 </td>
                 <!-- modal con COREUI -->
                 <c-modal #verticallyCenteredModal alignment="center" id="{{producto.img}}">
-                  <c-modal-header>
+                  <c-modal-header class="bg-secondary">
                     <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
                   </c-modal-header>
                   <c-modal-body>
-                    <img src="{{producto.img}}" class="img-fluid img-responsive">
+                    <div class="d-flex justify-content-center">
+                      <img src="{{producto.img}}" class="img-fluid img-responsive">
+                    </div>
                   </c-modal-body>
-                  <c-modal-footer>
-                    <button [cModalToggle]="verticallyCenteredModal.id" cButton color="success"
-                      shape="rounded-pill">Cerrar</button>
+                  <c-modal-footer class="bg-secondary">
+                    <button [cModalToggle]="verticallyCenteredModal.id" cButton color="dark"
+                      variant="ghost">Cerrar</button>
                   </c-modal-footer>
                 </c-modal>
-                  <!-- FIN modal con COREUI -->
+                <!-- FIN modal con COREUI -->
               </tr>
             </tbody>
           </table>
