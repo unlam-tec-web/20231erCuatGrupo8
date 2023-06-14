@@ -22,8 +22,8 @@
               <tr *ngFor="let producto of listaProductos">
                 <td>{{producto.name}}</td>
                 <td>
-                  <a data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <img src="{{producto.img}}" width="60" height="60" role="button">
+                  <a [cModalToggle]="producto.img">
+                    <img src="{{producto.img}}" width="120" height="60" role="button">
                   </a>
                 </td>
                 <td>{{producto.description}}</td>
@@ -32,27 +32,27 @@
                 <td>
                   <i (click)="eliminarProducto(producto._id)" class="fas fa-trash text-danger" role="button"></i>
                 </td>
-                <!-- este modal no se sies una buena practica                      -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header bg-dark"></div>
-                      <div class="modal-body">
-                        <img src="{{producto.img}}" class="img-fluid">
-                      </div>
-                      <div class="modal-footer bg-dark">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                      </div>
+                <!-- modal con COREUI -->
+                <c-modal #verticallyCenteredModal alignment="center" id="{{producto.img}}">
+                  <c-modal-header class="bg-secondary">
+                    <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+                  </c-modal-header>
+                  <c-modal-body>
+                    <div class="d-flex justify-content-center">
+                      <img src="{{producto.img}}" class="img-fluid img-responsive">
                     </div>
-                  </div>
-                </div>
-                <!-- fin del modal -->
+                  </c-modal-body>
+                  <c-modal-footer class="bg-secondary">
+                    <button [cModalToggle]="verticallyCenteredModal.id" cButton color="dark"
+                      variant="ghost">Cerrar</button>
+                  </c-modal-footer>
+                </c-modal>
+                <!-- FIN modal con COREUI -->
               </tr>
             </tbody>
           </table>
-          <button routerLink="/crear-producto" type="button"
-            class="btn btn-info text-white float-end">Agregar auto</button>
+          <button routerLink="/crear-producto" type="button" class="btn btn-info text-white float-end">Agregar
+            auto</button>
           <h5 style="text-align: start; margin-top: 10px;" *ngIf="listaProductos.length == 0">No hay productos para
             mostrar</h5>
         </div>
