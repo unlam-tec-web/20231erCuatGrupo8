@@ -18,6 +18,8 @@ import { CrearProductoComponent } from './components/crear-producto/crear-produc
 import { ListarProductosComponent } from './components/listar-productos/listar-productos.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ModalModule } from '@coreui/angular';
+import { ButtonModule } from '@coreui/angular';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     CarouselModule,
     BrowserAnimationsModule,
+    ModalModule,
+    ButtonModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',
