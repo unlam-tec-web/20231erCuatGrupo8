@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import {Md5} from 'ts-md5';
 
 @Component({
   selector: 'app-signup',
@@ -13,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SignupComponent implements OnInit {
   public formSignUp: FormGroup;
+  public md5: any = new Md5();
 
   constructor(
     private fb: FormBuilder,
@@ -39,13 +41,13 @@ export class SignupComponent implements OnInit {
     //Obtengo los datos del form
     const USER: User = {
       email: this.formSignUp.get('email')?.value,
-      password: this.formSignUp.get('password')?.value,
+      password: this.md5.appendStr(this.formSignUp.get('password')?.value).end(),
       firstName: this.formSignUp.get('description')?.value,
       lastName: this.formSignUp.get('category')?.value,
       address: this.formSignUp.get('price')?.value,
     }
 
-    //guardo el producto en la bd
+    //guardo el usuario en la bd
     this._userService.saveUser(USER).subscribe(data => {
       this.toastr.success('Felicitaciones!', 'Se registro correctamente'); //cartel exito
       this.router.navigate(['/']);
