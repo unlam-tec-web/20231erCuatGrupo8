@@ -8,9 +8,9 @@
 
         <p class="mt-1">Tu próximo auto a un paso...</p>
 
-        <form class="needs-validation" [formGroup]="formSignUp" novalidate>
+        <form [formGroup]="formSignUp" (ngSubmit)="createUser()">
 
-            <div class="mb-3 has-validation">
+            <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">
                     <i class="bi bi-envelope-fill"></i>
@@ -27,7 +27,7 @@
               </div>
             </div>
 
-            <div class="mb-3 has-validation">
+            <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">
                   <i class="bi bi-lock-fill"></i>
@@ -44,7 +44,7 @@
               </div>
             </div>
 
-            <div class="mb-3 has-validation">
+            <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">
                   <i class="bi bi-lock-fill"></i>
@@ -57,7 +57,7 @@
               </div>
             </div>
 
-            <div class="mb-3 has-validation">
+            <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">
                     <i class="bi bi-person-vcard-fill"></i>
@@ -70,7 +70,7 @@
               </div>
             </div>
 
-            <div class="mb-3 has-validation">
+            <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">
                   <i class="bi bi-person-vcard-fill"></i>
@@ -83,7 +83,7 @@
               </div>
             </div>
 
-            <div class="mb-3 has-validation">
+            <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">
                     <i class="bi bi-geo-alt-fill"></i>
@@ -97,10 +97,11 @@
             </div>
 
             <div class="d-grid gap-2">
-                <button class="btn btn-primary" (click)="onSubmit();" [disabled]="loading || formSignUp.invalid">
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <button class="btn btn-primary" type="submit" [disabled]="formSignUp.invalid">
+                  <!--<span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
                     Registrarse
                 </button>
+                
             </div>
 
         </form>
