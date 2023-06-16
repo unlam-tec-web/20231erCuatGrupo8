@@ -1,5 +1,6 @@
 const express = require('express');
 const router = require("./src/route/product.router");
+const otherRoutes = require('./src/route/user.router');
 const app = express();
 const mongoose = require("mongoose")
 const cors = require('cors');
@@ -10,6 +11,7 @@ const URI = "mongodb+srv://tallerweb2:OU1FiMJesXKK6SvO@carcash.gw7cpnl.mongodb.n
 app.use(express.json());
 app.use(cors());
 app.use("/api/products", router);
+app.use("/api/user", otherRoutes);
 
 mongoose
     .connect(URI)
