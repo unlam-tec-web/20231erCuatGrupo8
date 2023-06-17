@@ -1,27 +1,16 @@
 <app-carousel></app-carousel>
 
-  <div class="content" role="main">
-    <!-- Aca adentro tiene que ir el componente de los autos -->
+<div class="content" role="main">
+  <!-- Aca adentro tiene que ir el componente de los autos -->
 
-      <!-- Pruebas para el carrito después hacer un componente aparte -->
-      <div class="row row-cols-1 row-cols-md-3 g-2 mb-3">
-        <div *ngFor="let product of products" class="col">
-          <div class="card h-100">
-            <img src="{{product.img}}" class="card-img-top" alt="Producto">
-            <div class="card-body">
-              <h5 class="card-title">{{product.name}}</h5>
-              <p class="card-text">{{product.description}}</p>
-              <button (click)="addToCart(product)" class="btn btn-sm btn-success">
-                <i class="bi bi-cart"></i>
-                Agregar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+  <h1 class="text-center my-2">
+    Modelos destacados
+  </h1>
 
+  <div class="row row-cols-1 row-cols-md-3 g-2 mb-3">
+    <div *ngFor="let product of (featuredProducts$ | async)" class="col">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
   </div>
 
-
-
-
+</div>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../views/cart/Product';
+import { Product } from 'src/app/models/product';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { ShoppingCart } from '../models/cart';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class CartService {
   }
 
   private getShoppingCart() {
-    // TODO, hay que pedirlo al backend. El json tiene un producto de prueba cargado
+    // TODO: hay que pedirlo al backend. El json tiene un producto de prueba cargado
     this.httpClient.get<ShoppingCart>('./assets/cartData.json')
       .subscribe(
         {
@@ -58,7 +59,7 @@ export class CartService {
   removeProduct(product: Product) {
     // TODO debería ser también un POST al backend
     const shoppingCart = { ...this.shoppingCart$.value };
-    shoppingCart.products = shoppingCart.products.filter((prod) => prod.id !== product.id);
+    shoppingCart.products = shoppingCart.products.filter((prod) => prod._id !== product._id);
     this.setShoppingCart(shoppingCart);
   }
 
@@ -77,15 +78,9 @@ export class CartService {
     return this.shoppingCart$.pipe(
       map((shoppingCart) => {
         const subTotal = shoppingCart?.products
-        .reduce((tot, prod) => tot + prod.price, 0);
+          .reduce((tot, prod) => tot + prod.price, 0);
         return subTotal;
       })
     );
   }
-}
-
-// Models / Types
-export interface ShoppingCart {
-  products: Product[];
-  subTotal: number;
 }
