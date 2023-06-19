@@ -30,4 +30,33 @@ const addProduct = async (req, res) => {
   }
 }
 
-module.exports = { getCart, addProduct };
+const removeProduct = async (req, res) => {
+  try {
+    // FIX: paso un id harcodeadeo para matchear un usuario existente de la db
+    const USER_ID = "648c9a9c9db6c518c4e892e7"
+    const PRODUCT_ID = req.body.id
+    // const { userId, productId }  = req.body;
+
+    const PRODUCT = await cartService.removeProduct(PRODUCT_ID, USER_ID);
+
+    res.status(200).json(PRODUCT);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+const clear = async (req, res) => {
+  try {
+    // FIX: paso un id harcodeadeo para matchear un usuario existente de la db
+    const USER_ID = "648c9a9c9db6c518c4e892e7"
+    // const userId  = req.body;
+
+    const CART = await cartService.clear(USER_ID)
+
+    res.status(200).json(CART);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+module.exports = { getCart, addProduct, removeProduct, clear };

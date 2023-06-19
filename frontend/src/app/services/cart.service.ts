@@ -65,14 +65,35 @@ export class CartService {
 
   removeProduct(product: Product) {
     // TODO: debería ser también un POST al backend
-    const shoppingCart = { ...this.shoppingCart$.value };
-    shoppingCart.products = shoppingCart.products.filter((prod) => prod._id !== product._id);
-    this.setShoppingCart(shoppingCart);
+    this.httpClient.post<Product>(API_URLS.CART.REMOVE_PRODUCT, { id: product._id })
+      .subscribe(
+        {
+          next: (product: Product) => {
+            this.setShoppingCart(
+              {
+                products: [...this.shoppingCart$.value.products.filter(prod => prod._id !== product._id)],
+                subTotal: this.shoppingCart$.value
+                  .products
+                  .reduce((total, product) => total + product.price, 0)
+              } as ShoppingCart
+            );
+          },
+          error: (err: any) => console.error('Error: ', err)
+        }
+      );
   }
 
   clearCart() {
-    // TODO: debería ser también un POST al backend y eliminar todo el carrito de la bd
-    this.setShoppingCart({ products: [], subTotal: 0 });
+    // TODO: habría que obtener el id de usuario de la sessión/jwt, etc
+    this.httpClient.post<ShoppingCart>(API_URLS.CART.CLEAR, { id: "HARCODEADO" })
+      .subscribe(
+        {
+          next: (cart: ShoppingCart) => {
+            this.setShoppingCart(cart);
+          },
+          error: (err: any) => console.error('Error: ', err)
+        }
+      );
   }
 
   getCount(): Observable<number> {
@@ -96,6 +117,8 @@ export class CartService {
 const API_URLS = {
   CART: {
     VIEW: "http://localhost:3000/api/cart/view",
-    ADD_PRODUCT: "http://localhost:3000/api/cart/add"
+    ADD_PRODUCT: "http://localhost:3000/api/cart/add",
+    REMOVE_PRODUCT: "http://localhost:3000/api/cart/remove",
+    CLEAR: "http://localhost:3000/api/cart/clear"
   }
 }

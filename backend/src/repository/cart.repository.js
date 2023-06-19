@@ -9,9 +9,9 @@ const create = async (cart) => {
   return await ShoppingCart.create(cart);
 }
 
-const update = async (cart, product) => {
+const update = async (cart) => {
   return await ShoppingCart.findByIdAndUpdate(cart._id,
-    { products: [...cart.products, product] }
+    cart
   );
 }
 
