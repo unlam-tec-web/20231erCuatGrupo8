@@ -14,7 +14,7 @@ export class CartComponent {
 
   constructor(
     private cartService: CartService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cartProducts$ = this.cartService.getProducts();

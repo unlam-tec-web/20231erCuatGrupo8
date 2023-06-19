@@ -44,6 +44,11 @@ export class CartService {
   }
 
   addProduct(product: Product): void {
+    if (this.alreadyInCart(product)) {
+      console.log("Ya tenés el producto agregado");
+      return;
+    }
+
     this.httpClient.post<Product>(API_URLS.CART.ADD_PRODUCT, { id: product._id })
       .subscribe(
         {
@@ -64,6 +69,10 @@ export class CartService {
   }
 
   removeProduct(product: Product) {
+    if (!this.alreadyInCart(product)) {
+      return;
+    }
+
     // TODO: debería ser también un POST al backend
     this.httpClient.post<Product>(API_URLS.CART.REMOVE_PRODUCT, { id: product._id })
       .subscribe(
@@ -110,6 +119,10 @@ export class CartService {
         return subTotal;
       })
     );
+  }
+
+  private alreadyInCart(product: Product): boolean {
+    return this.shoppingCart$.value.products.filter(p => p._id == product._id).length > 0;
   }
 }
 

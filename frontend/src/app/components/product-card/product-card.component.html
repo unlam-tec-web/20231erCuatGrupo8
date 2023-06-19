@@ -1,20 +1,36 @@
-<div class="card h-100">
-  <img src="{{product.img}}" class="card-img-top img-fluid" alt="Producto">
-  <div class="card-body">
-    <h5 class="card-title">{{product.name}}</h5>
-    <p class="card-text">{{product.description}}</p>
-    <p class="">{{product.description}}</p>
-
-    <div class="text-center mt-3">
-      <button (click)="addToCart(product)" class="btn btn-sm btn-success">
-        <i class="bi bi-cart"></i>
-        Agregar
-      </button>
+<div class="card h-100 shadow border-0" style="max-width: 14rem; margin: auto">
+  <img src="{{product.img}}" class="card-img-top" alt="Producto">
+    <hr class="border border-primary">
+  <div class="card-body text-center">
+    <h5 class="card-title fw-bold">{{product.price | currency: 'ARS '}}</h5>
+    <h6 class="card-title">{{product.name}}</h6>
+    <div>
+      <ul class="list-inline text-warning">
+        <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+        <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+        <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+        <li class="list-inline-item"><i class="bi bi-star-half"></i></li>
+        <li class="list-inline-item"><i class="bi bi-star"></i></li>
+      </ul>
     </div>
-    <div class="text-center mt-3">
-    <button class="btn btn-sm btn-primary">
-      Ver
-    </button>
+    <div class="text-center mt-1">
+      <div class="d-grid col-6 mx-auto">
+        <button (click)="addToCart(product)" class="btn btn-sm btn-outline-success">
+          <i class="bi bi-cart"></i>
+          Agregar
+        </button>
+      </div>
+    </div>
+    <div class="text-center mt-1">
+      <div class="d-grid col-6 mx-auto">
+        <button class="btn btn-sm btn-outline-primary">
+          Ver
+        </button>
+      </div>
     </div>
   </div>
+  <div class="card-footer">
+    <small class="text-body-secondary fw-bold text-center">{{product.category}}</small>
+  </div>
 </div>
+

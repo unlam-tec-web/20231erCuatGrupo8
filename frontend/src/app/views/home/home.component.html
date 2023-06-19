@@ -1,16 +1,56 @@
 <app-carousel></app-carousel>
 
 <div class="content" role="main">
-  <!-- Aca adentro tiene que ir el componente de los autos -->
 
-  <h1 class="text-center my-2">
-    Modelos destacados
-  </h1>
+  <!-- Modelos destacados -->
+  <div class="container-fluid">
+    <h2 class="text-center fw-bold py-4">
+      Modelos destacados
+    </h2>
 
-  <div class="row row-cols-1 row-cols-md-3 g-2 mb-3">
-    <div *ngFor="let product of (featuredProducts$ | async)" class="col">
-      <app-product-card [product]="product"></app-product-card>
+    <div class="row row-cols-1 row-cols-md-3">
+      <div *ngFor="let product of (featuredProducts$ | async)" class="col my-2">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
     </div>
   </div>
+
+  <!-- Testimonios -->
+  <div class="testimonials-clean container-fluid mt-5">
+    <div class="container">
+      <div class="intro">
+        <h2 class="text-center">Testimonios de clientes </h2>
+        <p class="text-center">Nuestros clientes nos recomiendan. Carcash es el mejor sitio para comprar y vender autos online.</p>
+      </div>
+      <div class="row people">
+        <div class="col-md-6 col-lg-4 item">
+          <div class="box">
+            <p class="description">Aguante Carcash. Mi auto usado no se lo vendía a nadie. Lo publiqué y a los pocos días tenía el efectivo.</p>
+          </div>
+          <div class="author"><img class="rounded-circle" src="assets/img/testimonial1.jpg">
+            <h5 class="name">Martin Díaz</h5>
+            <p class="title">Ex jugador de fútbol</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 item">
+          <div class="box">
+            <p class="description">Desde que publicamos los autos en Carcash, la consecionaria aumentó las ventas un 50%. Lo recomendamos.</p>
+          </div>
+          <div class="author"><img class="rounded-circle" src="assets/img/testimonial2.jpg">
+            <h5 class="name">Ramón Fernandez</h5>
+            <p class="title">Gerente de ventas</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 item">
+          <div class="box">
+            <p class="description">Cada vez que tengo que cambiar el auto no lo pienso. Entró directamente a Carcash y buscó el modelo que necesito.</p>
+          </div>
+          <div class="author"><img class="rounded-circle" src="assets/img/testimonial3.jpg">
+            <h5 class="name">Mariana Romero</h5>
+            <p class="title">Profesora de Gimnasia</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
 </div>
