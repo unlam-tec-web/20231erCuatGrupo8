@@ -15,17 +15,20 @@
     </div>
     <div class="text-center mt-1">
       <div class="d-grid col-6 mx-auto">
-        <button (click)="addToCart(product)" class="btn btn-sm btn-outline-success">
-          <i class="bi bi-cart"></i>
-          Agregar
+        <button *ngIf="!(inCart$ | async); else elseBlock" (click)="addToCart()" class="btn btn-sm btn-success">
+          <i class="bi bi-cart"></i> Agregar
         </button>
+
+        <ng-template #elseBlock>
+          <small class="text-danger fw-bold my-1">
+            <i class="bi bi-cart-check"></i> En carrito
+          </small>
+        </ng-template>
       </div>
     </div>
     <div class="text-center mt-1">
       <div class="d-grid col-6 mx-auto">
-        <button class="btn btn-sm btn-outline-primary">
-          Ver
-        </button>
+        <button class="btn btn-sm btn-primary">Ver</button>
       </div>
     </div>
   </div>

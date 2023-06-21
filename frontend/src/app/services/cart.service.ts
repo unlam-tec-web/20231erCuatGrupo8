@@ -3,6 +3,7 @@ import { Product } from 'src/app/models/product';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ShoppingCart } from '../models/cart';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class CartService {
   private shoppingCart$: BehaviorSubject<ShoppingCart>;
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private toastr: ToastrService
   ) {
     // BehaviorSubject es un tipo de Observable que permite acceder al valor por BehaviorSubject.value
     this.shoppingCart$ = new BehaviorSubject<ShoppingCart>({ products: [], subTotal: 0 });
@@ -44,16 +46,12 @@ export class CartService {
   }
 
   addProduct(product: Product): void {
-    if (this.alreadyInCart(product)) {
-      console.log("Ya tenés el producto agregado");
-      return;
-    }
-
     this.httpClient.post<Product>(API_URLS.CART.ADD_PRODUCT, { id: product._id })
       .subscribe(
         {
           next: (product: Product) => {
             // Si se agregó exitosamente se agrega a la lista del carrito del front
+            this.toastr.success(`${product.name} se agregó al carrito`);
             this.setShoppingCart(
               {
                 products: [...this.shoppingCart$.value.products, product],
@@ -63,21 +61,21 @@ export class CartService {
               } as ShoppingCart
             );
           },
-          error: (err: any) => console.error('Error: ', err)
+          error: (err: any) => {
+            console.error('Error: ', err)
+            this.toastr.error('Ya está en el carrito.');
+          }
         }
       );
   }
 
   removeProduct(product: Product) {
-    if (!this.alreadyInCart(product)) {
-      return;
-    }
-
-    // TODO: debería ser también un POST al backend
+    // TODO: hay que mandarle también el id del user/carrito
     this.httpClient.post<Product>(API_URLS.CART.REMOVE_PRODUCT, { id: product._id })
       .subscribe(
         {
           next: (product: Product) => {
+            this.toastr.warning(`${product.name} se eliminó del carrito`);
             this.setShoppingCart(
               {
                 products: [...this.shoppingCart$.value.products.filter(prod => prod._id !== product._id)],
@@ -87,7 +85,10 @@ export class CartService {
               } as ShoppingCart
             );
           },
-          error: (err: any) => console.error('Error: ', err)
+          error: (err: any) => {
+            console.error('Error: ', err)
+            this.toastr.error(`Error al eliminar del carrito`);
+          }
         }
       );
   }
@@ -99,6 +100,7 @@ export class CartService {
         {
           next: (cart: ShoppingCart) => {
             this.setShoppingCart(cart);
+            this.toastr.warning("Se eliminaron todos los productos del carrito");
           },
           error: (err: any) => console.error('Error: ', err)
         }
@@ -121,11 +123,15 @@ export class CartService {
     );
   }
 
-  private alreadyInCart(product: Product): boolean {
-    return this.shoppingCart$.value.products.filter(p => p._id == product._id).length > 0;
+  alreadyInCart(product: Product): Observable<boolean> {
+    return this.shoppingCart$.pipe(
+      map(shoppingCart =>
+          // false
+        shoppingCart?.products.filter(p => p._id === product._id).length > 0
+      )
+    )
   }
 }
-
 
 const API_URLS = {
   CART: {

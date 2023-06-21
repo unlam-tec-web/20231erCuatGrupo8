@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cart',
@@ -14,6 +15,7 @@ export class CartComponent {
 
   constructor(
     private cartService: CartService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
