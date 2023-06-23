@@ -6,13 +6,14 @@
 
   <!-- Botones -->
   <div>
-    <button routerLink="/listar-producto" type="button" class="btn btn-success text-white m-2">Listar autos</button>
-    <button routerLink="/crear-producto" type="button" class="btn btn-info text-white text-white m-2">Agregar auto</button>
+    <a routerLink="/publicaciones" routerLinkActive="active" class="text-decoration-none">
+      <i class="bi bi-search" style="font-size: 1.5rem; color: white;"></i>
+    </a>
   </div>
 
   <!-- Acceso al carrito -->
   <a routerLink="/carrito" routerLinkActive="active" class="text-decoration-none px-3">
-    <i class="bi bi-cart fw-bold" style="font-size: 1.5rem; color: cornflowerblue;"></i>
+    <i class="bi bi-cart" style="font-size: 1.5rem; color: cornflowerblue;"></i>
     <span class="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-danger">
       {{ cartCount$ | async }}
       <span class="visually-hidden">Productos en carrito</span>

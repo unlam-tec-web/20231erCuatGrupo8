@@ -3,8 +3,18 @@
         <span class="bi bi-list bi-lg text-white custom-icon"></span>
     </button>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item text-dark"  routerLink="/perfile">Perfile</a></li>
-        <li><a class="dropdown-item text-dark"  routerLink="/ingreso">Iniciar Sesion</a></li>
-        <li><a class="dropdown-item text-dark"  routerLink="/registro">Registarse</a></li>
+        <!-- Menu loggueado -->
+        <div *ngIf="!loggedIn; else elseBlock">
+          <li><a class="dropdown-item text-dark"  routerLink="/ingreso">Iniciar Sesión</a></li>
+          <li><a class="dropdown-item text-dark"  routerLink="/registro">Registarse</a></li>
+          <hr>
+          <li><a class="dropdown-item text-dark"  routerLink="/publicaciones">Publicaciones</a></li>
+        </div>
+        <!-- Menu invitados -->
+        <ng-template #elseBlock>
+          <li><a class="dropdown-item text-dark"  routerLink="/publicaciones">Publicaciones</a></li>
+          <li><a class="dropdown-item text-dark"  routerLink="/listar-producto">Mis ventas</a></li>
+          <li><a class="dropdown-item text-dark"  routerLink="/crear-producto">Nueva publicación</a></li>
+        </ng-template>
     </ul>
 </div>

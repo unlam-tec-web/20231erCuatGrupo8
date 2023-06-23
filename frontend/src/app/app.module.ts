@@ -21,6 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ModalModule } from '@coreui/angular';
 import { ButtonModule } from '@coreui/angular';
 import { ProductCardComponent } from './components/product-card/product-card.component';
+import { ProductListComponent } from './views/product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
     CrearProductoComponent,
     ListarProductosComponent,
     ProductCardComponent,
+    ProductListComponent,
   ],
   imports: [
     BrowserModule,
