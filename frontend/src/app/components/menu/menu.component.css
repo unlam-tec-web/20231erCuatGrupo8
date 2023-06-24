@@ -1,0 +1,13 @@
+.menu-btn:hover {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+.menu-btn {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+.custom-icon {
+    font-size: 1.8rem;
+}

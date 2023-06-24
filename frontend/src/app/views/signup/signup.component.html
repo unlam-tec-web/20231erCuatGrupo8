@@ -1,99 +1,107 @@
-<div class="row align-items-center justify-content-center mx-0 bg-light vh-100">
+<div class="row align-items-center justify-content-center mx-0 bg-light">
     <div class="col-md-7 d-none d-md-block px-0">
         <img src="./assets/img/signup.jpg" class="img-signup" alt="Persona manejando">
     </div>
     <div class="col-md-5 col-sm-12 px-4">
 
-        <div class="text-center">
-            <img src="./assets/img/logo.png" alt="Logo carCash">
-        </div>
-
-        <h2 class="mt-3 fw-bold">Registro</h2>
+        <h2 class="mt-1 fw-bold">Registro</h2>
 
         <p class="mt-1">Tu próximo auto a un paso...</p>
 
-        <form class="needs-validation" [formGroup]="formSignUp" novalidate>
+        <form [formGroup]="formSignUp" (ngSubmit)="createUser()">
 
-            <div class="input-group mb-3 has-validation">
+            <div class="mb-3">
+              <div class="input-group">
                 <span class="input-group-text">
                     <i class="bi bi-envelope-fill"></i>
                 </span>
-                <input type="text" class="form-control" id="email" formControlName="email" placeholder="Email"
-                [class.is-invalid]="wasSubmitted && formSignUp.controls['email'].invalid"
-                [class.is-valid]="wasSubmitted && formSignUp.controls['email'].valid"
-                >
-                <div class="invalid-feedback">
-                    El email no corresponde a un formato válido (ej: mail@mail.com)
-                </div>
+                <input type="text" class="form-control" id="email" formControlName="email" placeholder="Email">
+              </div>
+              <div class="text-danger"
+                *ngIf="formSignUp.get('email')?.hasError('required') && formSignUp.get('email')?.touched">
+                <span>El email no puede estar vacío.</span>
+              </div>
+              <div class="text-danger"
+                *ngIf="formSignUp.get('email')?.hasError('email') && formSignUp.get('email')?.touched">
+                <span>El formato de email no es válido.</span>
+              </div>
             </div>
 
-            <div class="input-group mb-3 has-validation">
+            <div class="mb-3">
+              <div class="input-group">
                 <span class="input-group-text">
-                    <i class="bi bi-lock-fill"></i>
+                  <i class="bi bi-lock-fill"></i>
                 </span>
-                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Contraseña"
-                [class.is-invalid]="wasSubmitted && formSignUp.controls['password'].invalid"
-                [class.is-valid]="wasSubmitted && formSignUp.controls['password'].valid"
-                >
-                <div class="invalid-feedback">
-                    La contraseña no puede estar vacía.
-                </div>
+                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Contraseña">
+              </div>
+              <div class="text-danger"
+                *ngIf="formSignUp.get('password')?.hasError('pattern') && formSignUp.get('password')?.touched">
+                <span>Debe contener al menos 1 mayúscula, 1 minúscula, 1 dígito y longitud mínima de 8 caracteres.</span>
+              </div>
+              <div class="text-danger"
+                *ngIf="formSignUp.get('password')?.hasError('required') && formSignUp.get('password')?.touched">
+                <span>La contraseña no puede estar vacía.</span>
+              </div>
             </div>
 
-            <div class="input-group mb-3 has-validation">
+            <div class="mb-3">
+              <div class="input-group">
                 <span class="input-group-text">
-                    <i class="bi bi-lock-fill"></i>
+                  <i class="bi bi-lock-fill"></i>
                 </span>
-                <input type="password" class="form-control" id="passwordConfirm" formControlName="passwordConfirm" placeholder="Confirmar contraseña"
-                [class.is-invalid]="wasSubmitted && formSignUp.controls['passwordConfirm'].invalid"
-                [class.is-valid]="wasSubmitted && formSignUp.controls['passwordConfirm'].valid"
-                >
-                <div class="invalid-feedback">
-                    Las contraseñas no coinciden.
-                </div>
+                <input type="password" class="form-control" id="passwordConfirm" formControlName="passwordConfirm" placeholder="Confirmar contraseña">
+              </div>
+              <div class="text-danger"
+                *ngIf="formSignUp.get('passwordConfirm')?.hasError('passwordMatchValidator') && formSignUp.get('passwordConfirm')?.touched">
+                <span>Las contraseñas no coinciden.</span>
+              </div>
             </div>
 
-            <div class="input-group mb-3 has-validation">
-                <span class="input-group-text">
-                    <i class="bi bi-person-vcard-fill"></i>
-                </span>
-                <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Nombre"
-                [class.is-invalid]="wasSubmitted && formSignUp.controls['firstName'].invalid"
-                [class.is-valid]="wasSubmitted && formSignUp.controls['firstName'].valid"
-                >
-                <div class="invalid-feedback">
-                    El nombre no puede estar vacío.
-                </div>
-            </div>
-
-            <div class="input-group mb-3 has-validation">
+            <div class="mb-3">
+              <div class="input-group">
                 <span class="input-group-text">
                     <i class="bi bi-person-vcard-fill"></i>
                 </span>
-                <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Apellido"
-                [class.is-invalid]="wasSubmitted && formSignUp.controls['lastName'].invalid"
-                [class.is-valid]="wasSubmitted && formSignUp.controls['lastName'].valid"
-                >
-                <div class="invalid-feedback">
-                    El apellido no puede estar vacío.
-                </div>
+                <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Nombre">
+              </div>
+              <div class="text-danger"
+                *ngIf="formSignUp.get('firstName')?.hasError('required') && formSignUp.get('firstName')?.touched">
+                <span>El nombre no puede estar vacío.</span>
+              </div>
             </div>
 
-            <div class="input-group mb-3 has-validation">
+            <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-person-vcard-fill"></i>
+                </span>
+                <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Apellido">
+              </div>
+              <div class="text-danger"
+                *ngIf="formSignUp.get('lastName')?.hasError('required') && formSignUp.get('lastName')?.touched">
+                <span>El apellido no puede estar vacío.</span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="input-group">
                 <span class="input-group-text">
                     <i class="bi bi-geo-alt-fill"></i>
                 </span>
-                <input type="text" class="form-control" id="address" formControlName="address" placeholder="Dirección"
-                [class.is-invalid]="wasSubmitted && formSignUp.controls['address'].invalid"
-                [class.is-valid]="wasSubmitted && formSignUp.controls['address'].valid"
-                >
-                <div class="invalid-feedback">
-                    La dirección no puede estar vacía.
-                </div>
+                <input type="text" class="form-control" id="address" formControlName="address" placeholder="Dirección">
+              </div>
+              <div class="text-danger"
+                *ngIf="formSignUp.get('address')?.hasError('required') && formSignUp.get('address')?.touched">
+                <span>La dirección no puede estar vacía.</span>
+              </div>
             </div>
 
             <div class="d-grid gap-2">
-                <button class="btn btn-primary" (click)="onSubmit();">Registrarse</button>
+                <button class="btn btn-primary" type="submit" [disabled]="formSignUp.invalid">
+                  <!--<span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                    Registrarse
+                </button>
+                
             </div>
 
         </form>

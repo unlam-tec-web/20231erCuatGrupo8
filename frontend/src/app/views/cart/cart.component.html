@@ -1,0 +1,61 @@
+<h1 class="text-center mt-4 fw-bold">Productos en el carrito</h1>
+
+<div *ngIf="(cartProducts$ | async)?.length === 0; else elseBlock">
+  <div class="row m-5">
+    <div class="alert alert-info fw-bold" role="alert">
+      <i class="bi bi-info-square"></i>
+      No tenés productos en el carrito
+    </div>
+  </div>
+</div>
+
+<ng-template #elseBlock>
+
+    <div *ngFor="let product of (cartProducts$ | async)"class="card shadow p-3 mb-3 mt-3 mx-5 bg-body-tertiary rounded border-0">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <img src="{{product.img}}" class="img-fluid rounded-1" alt="Vehículo" style="max-width: 10rem">
+            </div>
+            <div class="ms-3">
+              <h6 class="fw-bold">{{product.name}}</h6>
+              <p class="small mb-0">{{product.category}}</p>
+            </div>
+          </div>
+          <div class="d-flex flex-row align-items-center">
+            <div style="max-width: 10rem;">
+              <h5 class="mb-0 fw-bold">{{product.price | currency: 'ARS '}}</h5>
+            </div>
+            <button routerLink="/publicacion/{{product._id}}" class="btn btn-sm btn-primary">
+              Ver
+            </button>
+            <button (click)="removeProduct(product)" type="button" class="btn btn-link">
+              <i class="bi bi-trash text-danger"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total del carrito -->
+    <div class="row mx-5 justify-content-end">
+      <div class="col-4 align-self-end">
+        <div class="card p-0 border-0 shadow mt-2 bg-body-tertiary rounded" style="width: 100%;">
+          <div class="card-header fw-bold" style="width: 100%; background-color: #cad1e3">
+            <i class="bi bi-receipt-cutoff"></i> Resumen
+          </div>
+          <hr class="border-2 border-primary mt-0">
+          <div class="m-2">Productos: {{ (cartProducts$ | async)?.length }}</div>
+          <div class="m-2 pb-2">Subtotal: <span class="fw-bold">{{ (cartSubTotal$ | async) | currency: 'ARS ' }}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmación del carrito -->
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mx-5 my-3">
+      <button class="btn btn-success" type="button">Confirmar compra</button>
+      <button class="btn btn-danger" type="button" (click)="clearCart()">Limpiar carrito</button>
+    </div>
+
+</ng-template>

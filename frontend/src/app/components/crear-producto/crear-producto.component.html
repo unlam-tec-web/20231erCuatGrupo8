@@ -1,0 +1,57 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card w-100">
+                <div class="card-header">
+                    <h3>AGREGAR AUTO</h3>
+                </div>
+                <div class="card-body 2-100">
+                    <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()" method="post"> <!--Aca algo el binding  -->
+                         <!-- Hardcodero la imagen -->
+                         <div class="mb-3">
+                            <input type="text" formControlName="img" class="form-control"
+                                value="https://thumbs.dreamstime.com/z/coche-inc%C3%B3gnito-33985922.jpg">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" formControlName="name" class="form-control form-control-lg"
+                                placeholder="Nombre">
+                            <div class="text-danger"
+                                *ngIf="productoForm.get('name')?.hasError('required') && productoForm.get('name')?.touched">
+                                <!--Accedo para ver si la propiedad esta true o false  -->
+                                <span>El nombre es requerido</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" formControlName="description" class="form-control form-control-lg"
+                                placeholder="Descripcion">
+                            <div class="text-danger"
+                                *ngIf="productoForm.get('description')?.hasError('required') && productoForm.get('description')?.touched">
+                                <span>La descripcion es requerida</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" formControlName="category" class="form-control form-control-lg"
+                                placeholder="Categoria">
+                            <div class="text-danger"
+                                *ngIf="productoForm.get('category')?.hasError('required') && productoForm.get('category')?.touched">
+                                <span>La categoria es requerida</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" formControlName="price" class="form-control form-control-lg"
+                                placeholder="Precio">
+                            <div class="text-danger"
+                                *ngIf="productoForm.get('price')?.hasError('required') && productoForm.get('price')?.touched">
+                                <span>El precio es requerido</span>
+                            </div>
+                        </div>
+                        <button routerLink="/" type="button" class="btn btn-danger float-start">Cancelar</button>
+                        <button type="submit" [disabled]="productoForm.invalid"
+                            class="btn btn-success float-end">Enviar</button>
+                        <!-- [disabled]="productoForm.invalid esto es para que si el formulario es invalido no me deje clikear el boton de enviar"  -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

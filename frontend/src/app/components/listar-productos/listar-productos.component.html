@@ -1,0 +1,62 @@
+<div class="container my-5">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="card w-100">
+        <div class="card-header">
+          <h3>LISTADO DE AUTOS</h3>
+        </div>
+        <div class="card-body">
+
+          <table *ngIf="listaProductos.length > 0" class="table table-striped mt-3">
+            <thead>
+              <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Clasificación</th>
+                <th scope="col">Precio</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let producto of listaProductos">
+                <td>{{producto.name}}</td>
+                <td>
+                  <a [cModalToggle]="producto.img">
+                    <img src="{{producto.img}}" width="120" height="60" role="button">
+                  </a>
+                </td>
+                <td>{{producto.description}}</td>
+                <td>{{producto.category}}</td>
+                <td>{{producto.price}}</td>
+                <td>
+                  <i (click)="eliminarProducto(producto._id)" class="fas fa-trash text-danger" role="button"></i>
+                </td>
+                <!-- modal con COREUI -->
+                <c-modal #verticallyCenteredModal alignment="center" id="{{producto.img}}">
+                  <c-modal-header class="bg-secondary">
+                    <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+                  </c-modal-header>
+                  <c-modal-body>
+                    <div class="d-flex justify-content-center">
+                      <img src="{{producto.img}}" class="img-fluid img-responsive">
+                    </div>
+                  </c-modal-body>
+                  <c-modal-footer class="bg-secondary">
+                    <button [cModalToggle]="verticallyCenteredModal.id" cButton color="dark"
+                      variant="ghost">Cerrar</button>
+                  </c-modal-footer>
+                </c-modal>
+                <!-- FIN modal con COREUI -->
+              </tr>
+            </tbody>
+          </table>
+          <button routerLink="/crear-producto" type="button" class="btn btn-info text-white float-end">Agregar
+            auto</button>
+          <h5 style="text-align: start; margin-top: 10px;" *ngIf="listaProductos.length == 0">No hay productos para
+            mostrar</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

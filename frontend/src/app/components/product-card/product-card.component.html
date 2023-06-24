@@ -1,0 +1,41 @@
+<div class="card h-100 shadow border-0" style="max-width: 14rem; margin: auto">
+  <img src="{{product.img}}" class="card-img-top" alt="Producto">
+    <hr class="border border-primary">
+  <div class="card-body text-center">
+    <h5 class="card-title fw-bold">{{product.price | currency: 'ARS '}}</h5>
+    <h6 class="card-title">{{product.name}}</h6>
+    <div>
+      <ul class="list-inline text-warning">
+        <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+        <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+        <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+        <li class="list-inline-item"><i class="bi bi-star-half"></i></li>
+        <li class="list-inline-item"><i class="bi bi-star"></i></li>
+      </ul>
+    </div>
+    <div class="text-center mt-1">
+      <div class="d-grid col-6 mx-auto">
+        <button *ngIf="!(inCart$ | async); else elseBlock" (click)="addToCart()" class="btn btn-sm btn-success">
+          <i class="bi bi-cart"></i> Agregar
+        </button>
+
+        <ng-template #elseBlock>
+          <small class="text-danger fw-bold my-1">
+            <i class="bi bi-cart-check"></i> En carrito
+          </small>
+        </ng-template>
+      </div>
+    </div>
+    <div class="text-center mt-1">
+      <div class="d-grid col-6 mx-auto">
+        <button routerLink="/publicacion/{{product._id}}" class="btn btn-sm btn-primary">
+          Ver
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <small class="text-body-secondary fw-bold text-center">{{product.category}}</small>
+  </div>
+</div>
+
