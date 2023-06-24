@@ -1,0 +1,91 @@
+<div class="container my-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-12 p-1">
+      <div class="card shadow border-0">
+        <div class="row">
+          <div class="col-md-6 my-auto">
+              <div class="text-center p-4">
+                <img class="img-fluid rounded" src="{{product.img}}" />
+              </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="p-4">
+              <div class="d-flex justify-content-between align-items-center">
+                <button (click)="goBack()" class="d-flex align-items-center btn">
+                  <i class="bi bi-arrow-left fw-bold fs-4"></i>
+                  <span class="ml-1">Volver</span>
+                </button>
+                <i *ngIf="addedToCart" class="bi bi-cart-check text-success fs-2"></i>
+              </div>
+              <div class="mt-4 mb-3"><span class="text-uppercase text-muted">{{product.category}}</span></div>
+              <h3 class="text-uppercase fw-bold">{{product.name}}</h3>
+
+              <ul class="list-inline text-warning">
+                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                <li class="list-inline-item"><i class="bi bi-star-half"></i></li>
+                <li class="list-inline-item"><i class="bi bi-star"></i></li>
+              </ul>
+
+              <div>
+                {{product.price | currency: 'ARS '}}
+              </div>
+
+              <div class="py-2">
+                <p>{{product.description}}</p>
+              </div>
+
+              <!-- Tabla harcodeada para todos igual. Habría que definirla en las características del producto -->
+              <div class="py-2">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Modelo</td>
+                      <td>2020</td>
+                    </tr>
+                    <tr>
+                      <td>Motor</td>
+                      <td>1.8</td>
+                    </tr>
+                    <tr>
+                      <td>Combustible</td>
+                      <td>Diesel</td>
+                    </tr>
+                    <tr>
+                      <td>Estado</td>
+                      <td>Usado</td>
+                    </tr>
+                    <tr>
+                      <td>Color</td>
+                      <td>Negro</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="d-flex justify-content-between">
+
+                <button *ngIf="!addedToCart; else elseBlock" (click)="addToCart()" class="btn btn-sm btn-success">
+                  <i class="bi bi-cart"></i> Agregar
+                </button>
+
+                <ng-template #elseBlock>
+                  <small class="text-danger fw-bold my-1">
+                    <i class="bi bi-cart-check"></i> En carrito
+                  </small>
+                </ng-template>
+
+                <button class="btn">
+                  <i class="bi bi-share"></i>
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,7 +9,7 @@ import { ProductoService } from 'src/app/services/producto.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
-  products$: Observable<Product[]> | undefined | null;
+  products$: Observable<Product[]> | null;
 
   constructor(
     private productoService: ProductoService

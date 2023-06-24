@@ -27,7 +27,7 @@
             <div style="max-width: 10rem;">
               <h5 class="mb-0 fw-bold">{{product.price | currency: 'ARS '}}</h5>
             </div>
-            <button type="button" class="btn btn-sm btn-primary">
+            <button routerLink="/publicacion/{{product._id}}" class="btn btn-sm btn-primary">
               Ver
             </button>
             <button (click)="removeProduct(product)" type="button" class="btn btn-link">

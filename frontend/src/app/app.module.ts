@@ -22,6 +22,7 @@ import { ModalModule } from '@coreui/angular';
 import { ButtonModule } from '@coreui/angular';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductListComponent } from './views/product-list/product-list.component';
+import { ProductDetailComponent } from './views/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ProductListComponent } from './views/product-list/product-list.componen
     ListarProductosComponent,
     ProductCardComponent,
     ProductListComponent,
+    ProductDetailComponent,
   ],
   imports: [
     BrowserModule,
