@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent {
-  public loggedIn = true;
+  public loggedIn = false;
 
 }

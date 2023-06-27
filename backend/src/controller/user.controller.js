@@ -10,18 +10,19 @@ const findAll = async (req, res) => {
     }
 }
 
-const createUser = async (req, res) => {
-    try {
-        // Obtengo los datos del cuerpo de la solicitud
-        const USER = req.body;
-
-        // Creo el usuario utilizando el servicio
-        await userService.createUser(USER);
-        console.log(USER);
-        res.status(200).json(USER);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+const createUser = (req, res) => {
+    userService.createUser(req.body)
 }
 
-module.exports = { createUser, findAll };
+const logIn = (req, res) => {
+    userService.logIn(req.body)
+        .then(user => {
+            res.status(200).json(user)
+        })
+        .catch(error => {
+            res.status(500).json({ error: error.message });
+        })
+}
+
+
+module.exports = { createUser, findAll, logIn };

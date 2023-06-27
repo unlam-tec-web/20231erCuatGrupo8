@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
     //Obtengo los datos del form
     const USER: User = {
       email: this.formSignUp.get('email')?.value,
-      password: this.md5.appendStr(this.formSignUp.get('password')?.value).end(),
+      password: this.formSignUp.get('password')?.value,
       firstName: this.formSignUp.get('description')?.value,
       lastName: this.formSignUp.get('category')?.value,
       address: this.formSignUp.get('price')?.value,
