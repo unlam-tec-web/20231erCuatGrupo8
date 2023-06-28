@@ -23,18 +23,17 @@ export class LoginComponent {
 
   ngOnInit(): void {
 
-    // Regex contraseña: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$
-    // 1 minúscula -> (?=.*[a-z])
-    // 1 mayuscula -> (?=.*[A-Z])
-    // 1 dígito -> (?=.*\d)
-    // Mínimo 8 caracteres -> (?=^.{8,}$)
-    // No permite espacios en blanco
+    // Longitud mínima de caracteres 8
+    // Contiene al menos 1 número
+    // Contiene al menos una letra minúscula
+    // Contiene al menos una letra mayúscula
+    // Contiene al menos 1 carácter especial del siguiente conjunto o un carácter de espacio que no es inicial ni final
 
     this.formSignUp = this.formBuilder.group({
       email: new FormControl('', [Validators.email, Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$/)]),
-    },
-    { validators: PasswordMatchValidator('password', 'passwordConfirm') } as AbstractControlOptions
+      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\^$*.[\]{}()\?\-"!@#%&/\\,><':;\|_~`+=])[^\s](?=.*[^\s])[\S\s]{8,}$/)]),
+    }
+
     );
   }
 
@@ -53,11 +52,11 @@ export class LoginComponent {
       {
         // Si responde ok la petición
         next: (res: any) => {
-          alert('Registro exitoso. Verifique el mail para iniciar sesión.');
+          alert('Inició sesión!');
           this.router.navigate(['/']);
         },
         // Si hay error en la petición
-        error: (err: any) => { alert('El email ya existe. Debe utilizar otro')},
+        error: (err: any) => { alert('El email ya existe. Debe utilizar otro') },
         // complete: () => { }
       }
     )

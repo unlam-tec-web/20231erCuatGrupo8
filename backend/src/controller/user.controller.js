@@ -12,6 +12,12 @@ const findAll = async (req, res) => {
 
 const createUser = (req, res) => {
     userService.createUser(req.body)
+        .then(req => {
+            res.status(200).json(req)
+        })
+        .catch(error => {
+            res.status(500).json({ error: error.message });
+        })
 }
 
 const logIn = (req, res) => {

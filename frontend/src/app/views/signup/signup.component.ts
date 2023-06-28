@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit {
   ) {
     this.formSignUp = this.fb.group({
       email: new FormControl('', [Validators.email, Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$/)]),
+      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\^$*.[\]{}()\?\-"!@#%&/\\,><':;\|_~`+=])[^\s](?=.*[^\s])[\S\s]{8,}$/)]),
       passwordConfirm: new FormControl('', Validators.required),
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -42,9 +42,9 @@ export class SignupComponent implements OnInit {
     const USER: User = {
       email: this.formSignUp.get('email')?.value,
       password: this.formSignUp.get('password')?.value,
-      firstName: this.formSignUp.get('description')?.value,
-      lastName: this.formSignUp.get('category')?.value,
-      address: this.formSignUp.get('price')?.value,
+      firstName: this.formSignUp.get('firstName')?.value,
+      lastName: this.formSignUp.get('lastName')?.value,
+      address: this.formSignUp.get('address')?.value,
     }
 
     //guardo el usuario en la bd
