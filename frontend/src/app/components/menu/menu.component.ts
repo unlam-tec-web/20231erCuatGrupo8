@@ -1,4 +1,7 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component } from '@angular/core';
+import { of } from 'rxjs';
+
 
 @Component({
   selector: 'app-menu',
@@ -6,6 +9,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent {
-  public loggedIn = false;
+  constructor(private authService: AuthService) {
+    this.authService.isLog.subscribe(
+      {
+        next: (estado) => {
+          this.loggedIn = estado
+        }
+        ,
+        error: () => {
+          this.loggedIn = false
+        }
+      }
+    )
+  }
+  public loggedIn: Boolean = false;
 
+
+  logout(): void {
+    this.authService.isLog = of(false)
+  }
 }

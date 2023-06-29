@@ -1,23 +1,23 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   public url = 'http://localhost:3000/api/user';
+  public isLog: Observable<boolean> = of(false);
 
   constructor(
-    private http: HttpClient) { }
+    private http: HttpClient
+  ) { }
 
-  // Registrar usuario
   signUp(user: UserRegisterDto): Observable<any> {
-    return this.http.post(this.url + '/login', user)
+    return this.http.post(this.url + '/login', user);
   }
 }
-// TODO: extraer a types/interfaces/models etc
+
 export interface UserRegisterDto {
   email: string;
   password: string;
@@ -26,4 +26,3 @@ export interface UserRegisterDto {
   lastName: string;
   address: string;
 }
-
