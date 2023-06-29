@@ -17,7 +17,6 @@ const findAllUsers = async () => {
 
 function createUser(userData) {
     return new Promise((resolve, reject) => {
-        console.log(userData)
         var attributeList = [];
         fullName = `${userData.lastName} ${userData.firstName}`
         attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: "name", Value: fullName }));
@@ -25,12 +24,10 @@ function createUser(userData) {
 
         userPool.signUp(userData.email, userData.password, attributeList, null,
             function (err, result) {
-                console.log(result)
                 if (err) {
                     reject("Error al registrar usuario", err);
                 }
-                cognitoUser = result.user;
-                resolve(cognitoUser)
+                resolve(result)
             });
     })
 }
@@ -49,8 +46,12 @@ function logIn(userData) {
 
         var cognitoUser = new AmazonCognitoIdentity.CognitoUser(user);
         cognitoUser.authenticateUser(authenticationDetails, {
-            onSuccess: resolve(result),
-            onFailure: reject(err)
+            onSuccess: (result) => {
+                resolve(result)
+            },
+            onFailure: (err) => {
+                reject(err)
+            }
         });
     })
 }

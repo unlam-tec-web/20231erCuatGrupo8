@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 
@@ -9,14 +9,14 @@ import { Observable } from 'rxjs';
 export class AuthService {
   public url = 'http://localhost:3000/api/user';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient) { }
 
   // Registrar usuario
   signUp(user: UserRegisterDto): Observable<any> {
-    return this.http.post(this.url + '/login', user);
+    return this.http.post(this.url + '/login', user)
   }
 }
-
 // TODO: extraer a types/interfaces/models etc
 export interface UserRegisterDto {
   email: string;

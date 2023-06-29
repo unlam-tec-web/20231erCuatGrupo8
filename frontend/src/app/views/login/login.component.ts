@@ -3,6 +3,8 @@ import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators
 import { PasswordMatchValidator } from '../signup/password-match.validator';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,8 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -52,11 +55,16 @@ export class LoginComponent {
       {
         // Si responde ok la petición
         next: (res: any) => {
-          alert('Inició sesión!');
+          console.log("Esta es la res -> ", res)
+          this.toastr.success(`Sesion iniciada`);
+
           this.router.navigate(['/']);
         },
-        // Si hay error en la petición
-        error: (err: any) => { alert('El email ya existe. Debe utilizar otro') },
+        error: (err: any) => {
+          console.log("Esta es el err -> ", err)
+          this.toastr.error('Debe confirmar el mail');
+
+        },
         // complete: () => { }
       }
     )
