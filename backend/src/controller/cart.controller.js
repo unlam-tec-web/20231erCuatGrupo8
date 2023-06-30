@@ -17,7 +17,8 @@ const getCart = async (req, res) => {
 const addProduct = async (req, res) => {
   try {
     // FIX: paso un id harcodeadeo para matchear un usuario existente de la db
-    const USER_ID = "648c9a9c9db6c518c4e892e7"
+    console.log(req.body.userId)
+    const USER_ID = req.body.userId
     const PRODUCT_ID = req.body.id
     // console.log(PRODUCT_ID)
     // const { userId, productId }  = req.body;

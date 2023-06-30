@@ -17,15 +17,15 @@ export class MenuComponent {
         }
         ,
         error: () => {
-          this.loggedIn = false
+          this.loggedIn = ""
         }
       }
     )
   }
-  public loggedIn: Boolean = false;
+  public loggedIn: String = "";
 
 
   logout(): void {
-    this.authService.isLog = of(false)
+    this.authService.isLog = of("")
   }
 }

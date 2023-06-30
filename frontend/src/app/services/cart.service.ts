@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ShoppingCart } from '../models/cart';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,26 @@ export class CartService {
 
   constructor(
     private httpClient: HttpClient,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthService,
   ) {
     // BehaviorSubject es un tipo de Observable que permite acceder al valor por BehaviorSubject.value
     this.shoppingCart$ = new BehaviorSubject<ShoppingCart>({ products: [], subTotal: 0 });
     this.getShoppingCart();
+    this.authService.isLog.subscribe(
+      {
+        next: (estado) => {
+          console.log(estado)
+          this.loggedIn = estado
+        }
+        ,
+        error: () => {
+          this.loggedIn = ""
+        }
+      }
+    )
   }
+  public loggedIn: String = "";
 
   private getShoppingCart() {
     // FIX: pasar el user id....
@@ -46,7 +61,8 @@ export class CartService {
   }
 
   addProduct(product: Product): void {
-    this.httpClient.post<Product>(API_URLS.CART.ADD_PRODUCT, { id: product._id })
+    console.log(this.loggedIn)
+    this.httpClient.post<Product>(API_URLS.CART.ADD_PRODUCT, { id: product._id, userId: this.loggedIn})
       .subscribe(
         {
           next: (product: Product) => {

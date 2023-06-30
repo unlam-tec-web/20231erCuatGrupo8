@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 })
 export class AuthService {
   public url = 'http://localhost:3000/api/user';
-  public isLog: Observable<boolean> = of(false);
+  public isLog: Observable<String> = of("a");
 
   constructor(
     private http: HttpClient
