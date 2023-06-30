@@ -2,10 +2,7 @@ const { cartService } = require("../service/cart.service");
 
 const getCart = async (req, res) => {
   try {
-    // FIX: paso un id harcodeadeo para matchear un usuario existente de la db
-    const ID = "648c9a9c9db6c518c4e892e7"
-
-    // const ID = req.body;
+    const ID = req.query.cart;
     const CART = await cartService.findById(ID)
     res.status(200).json(CART);
   } catch (error) {
@@ -15,8 +12,6 @@ const getCart = async (req, res) => {
 
 const addProduct = async (req, res) => {
   try {
-    // FIX: paso un id harcodeadeo para matchear un usuario existente de la db
-    console.log(req.body.userId)
     const USER_ID = req.body.userId
     const PRODUCT_ID = req.body.id
 
@@ -30,10 +25,8 @@ const addProduct = async (req, res) => {
 
 const removeProduct = async (req, res) => {
   try {
-    // FIX: paso un id harcodeadeo para matchear un usuario existente de la db
-    const USER_ID = "648c9a9c9db6c518c4e892e7"
     const PRODUCT_ID = req.body.id
-    // const { userId, productId }  = req.body;
+    const USER_ID = req.body.userId
 
     const PRODUCT = await cartService.removeProduct(PRODUCT_ID, USER_ID);
 
@@ -46,9 +39,7 @@ const removeProduct = async (req, res) => {
 const clear = async (req, res) => {
   try {
     // FIX: paso un id harcodeadeo para matchear un usuario existente de la db
-    const USER_ID = "648c9a9c9db6c518c4e892e7"
-    // const userId  = req.body;
-
+    const USER_ID = req.body.id
     const CART = await cartService.clear(USER_ID)
 
     res.status(200).json(CART);

@@ -47,6 +47,7 @@ function logIn(userData) {
         var cognitoUser = new AmazonCognitoIdentity.CognitoUser(user);
         cognitoUser.authenticateUser(authenticationDetails, {
             onSuccess: (result) => {
+                // console.log(result)
                 resolve({email: result.getIdToken().payload.email,
                         nombre: result.getIdToken().payload.name})
             },

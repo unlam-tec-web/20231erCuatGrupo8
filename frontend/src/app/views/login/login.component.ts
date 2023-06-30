@@ -38,7 +38,6 @@ export class LoginComponent {
     }
 
     );
-    this.authService.isLog = of("aca");
   }
 
   onSubmit() {
