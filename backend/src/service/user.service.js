@@ -58,6 +58,28 @@ function logIn(userData) {
     })
 }
 
-const userService = { createUser, findAllUsers, logIn };
+// Función para verificar el código de verificación del correo electrónico
+function verifyEmail(username, verificationCode) {
+  return new Promise((resolve, reject) => {
+    const userData = {
+      Username: username,
+      Pool: userPool
+    };
+
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+    cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
+      if (err) {
+        console.error(err);
+        reject(err); // Rechazar la promesa en caso de error
+      } else {
+        console.log(result);
+        resolve(result); // Resolver la promesa en caso de éxito
+      }
+    });
+  });
+}
+
+const userService = { createUser, findAllUsers, logIn, verifyEmail };
 
 module.exports = { userService };
