@@ -5,7 +5,6 @@ const buscarTodos = () => {
 }
 
 const guardarProducto = (product) => {
-  //validaciones
   return productRepository.guardarProducto(product);
 }
 

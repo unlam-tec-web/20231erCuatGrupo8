@@ -1,4 +1,3 @@
-const { userRepository } = require('../repository/user.repository');
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
 global.fetch = require('node-fetch');
@@ -10,10 +9,6 @@ const poolData = {
 };
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-
-const findAllUsers = async () => {
-    return await userRepository.getAllUsers();
-}
 
 function createUser(userData) {
     return new Promise((resolve, reject) => {
@@ -80,6 +75,6 @@ function verifyEmail(username, verificationCode) {
   });
 }
 
-const userService = { createUser, findAllUsers, logIn, verifyEmail };
+const userService = { createUser, logIn, verifyEmail };
 
 module.exports = { userService };

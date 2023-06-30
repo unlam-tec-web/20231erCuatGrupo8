@@ -1,21 +1,17 @@
-const ShoppingCart = require('../model/cart.model');
+const ShoppingCart = require("../model/cart.model");
 
-const findById = async (email) => {
-  return await ShoppingCart.findOne({ email: email })
-    .populate("products");
-}
+const findById = (email) => {
+  return ShoppingCart.findOne({ email: email }).populate("products");
+};
 
-const create = async (cart) => {
-  return await ShoppingCart.create(cart);
-}
+const create = (cart) => {
+  return ShoppingCart.create(cart);
+};
 
-const update = async (cart) => {
-  return await ShoppingCart.findByIdAndUpdate(cart._id,
-    cart
-  );
-}
+const update = (cart) => {
+  return ShoppingCart.findByIdAndUpdate(cart._id, cart);
+};
 
 const cartRepository = { findById, create, update };
 
 module.exports = { cartRepository };
-

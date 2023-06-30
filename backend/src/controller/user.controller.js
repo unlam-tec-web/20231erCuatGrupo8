@@ -1,14 +1,5 @@
 const { userService } = require("../service/user.service");
 
-const findAll = async (req, res) => {
-    try {
-        const USERS = await userService.findAllUsers();
-        res.status(200).json(USERS);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}
-
 const createUser = (req, res) => {
     userService.createUser(req.body)
         .then(req => {
@@ -43,4 +34,4 @@ const logIn = (req, res) => {
 }
 
 
-module.exports = { createUser, findAll, logIn, validateEmail };
+module.exports = { createUser, logIn, validateEmail };
