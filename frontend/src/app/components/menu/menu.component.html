@@ -4,7 +4,7 @@
   </button>
   <ul class="dropdown-menu">
     <!-- Menu loggueado -->
-    <div *ngIf="loggedIn; else elseBlock">
+    <div *ngIf="loggedIn == ''; else elseBlock">
       <li><a class="dropdown-item text-dark" routerLink="/ingreso">Iniciar Sesión</a></li>
       <li><a class="dropdown-item text-dark" routerLink="/registro">Registarse</a></li>
       <hr>
