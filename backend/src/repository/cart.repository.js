@@ -1,7 +1,7 @@
 const ShoppingCart = require('../model/cart.model');
 
 const findById = async (id) => {
-  return await ShoppingCart.findOne({ user: { _id: id } }, { user: 0 })
+  return await ShoppingCart.findOne({ user: { email: id } }, { user: 0 })
     .populate("products");
 }
 

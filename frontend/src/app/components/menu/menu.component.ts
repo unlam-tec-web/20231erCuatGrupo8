@@ -9,6 +9,7 @@ import { of } from 'rxjs';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent {
+  public loggedIn: String = "";
   constructor(private authService: AuthService) {
     this.authService.isLog.subscribe(
       {
@@ -22,10 +23,11 @@ export class MenuComponent {
       }
     )
   }
-  public loggedIn: String = "";
+  
+  
 
 
   logout(): void {
-    this.authService.isLog = of("")
+    this.loggedIn = ""
   }
 }

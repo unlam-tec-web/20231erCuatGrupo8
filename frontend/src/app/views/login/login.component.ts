@@ -23,7 +23,9 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
     private toastr: ToastrService,
-  ) { }
+  ) { 
+
+  }
 
   ngOnInit(): void {
 
@@ -38,8 +40,14 @@ export class LoginComponent {
     }
     
     );
-    this.authService.isLog = of("aca");
+    
   }
+
+  updateDependencyVariable(newValue: any) {
+    return this.authService.isLog = newValue;
+  }
+
+
 
   onSubmit() {
     this.wasSubmitted = true;
@@ -56,9 +64,11 @@ export class LoginComponent {
       {
         next: (res: any) => {
           console.log(res.nombre, res.email)
-          this.authService.isLog = of(res.email);
-          console.log(this.authService.isLog)
-          this.toastr.success(`Sesion iniciada`);
+          //this.authService.isLog = of("of(res.email)");
+          console.log(this.authService.isLog = this.updateDependencyVariable(res.email));
+          this.authService.isLog = this.updateDependencyVariable(res.email);
+          console.log(this.authService.isLog , "1" );
+          //this.toastr.success(`Sesion iniciada`);
           this.router.navigate(['/']);
         },
         error: (err: any) => {
