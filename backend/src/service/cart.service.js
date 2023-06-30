@@ -5,12 +5,6 @@ const User = require('../model/user.model');
 const { Error } = require('mongoose');
 
 const findById = async (id) => {
-  // TODO: Lógica para validar que el usuario que está queriendo ver el carrito sea
-  // el de él mismo
-  // if (id !== user._id) {
-  //   throw new Error("No estás autorizado");
-  // }
-
   const cart = await cartRepository.findById(id)
 
   // Si no existe el carrito lo creamos
@@ -23,17 +17,14 @@ const findById = async (id) => {
 
 // Agregar al carrito
 const addProduct = async (productId, userId) => {
-  // TODO: IDEM lógica para determinar que el carrito es del usuario logueado
-  // o no te lo dejo agregar
-
-  const cart = await cartRepository.findById(userId);
+  const cart = await findById(userId);
   const product = await productRepository.buscarProducto(productId);
 
   if (!cart || !product) {
     throw new Error("Carrito o producto inválido");
   }
 
-  if(alreadyInCart(cart, productId)) {
+  if (alreadyInCart(cart, productId)) {
     throw new Error("Ya tenés ese producto en el carrito");
   }
 
@@ -44,8 +35,6 @@ const addProduct = async (productId, userId) => {
 }
 
 const removeProduct = async (productId, userId) => {
-  // TODO: IDEM lógica para determinar que el carrito es del usuario logueado
-
   const cart = await cartRepository.findById(userId);
   const product = await productRepository.buscarProducto(productId);
 
@@ -53,7 +42,7 @@ const removeProduct = async (productId, userId) => {
     throw new Error("Carrito o producto inválido");
   }
 
-  if(!alreadyInCart(cart, productId)) {
+  if (!alreadyInCart(cart, productId)) {
     throw new Error("No tenés ese vehículo");
   }
 
@@ -64,8 +53,6 @@ const removeProduct = async (productId, userId) => {
 }
 
 const clear = async (userId) => {
-  // TODO: IDEM lógica para determinar que el carrito es del usuario logueado
-  // o no te lo dejo limpiar
   const cart = await cartRepository.findById(userId);
 
   if (!cart) {
@@ -82,11 +69,7 @@ const clear = async (userId) => {
 // ----------------------------------------------------------------------------
 
 const createCart = async (userId) => {
-  // TODO: hay que crear un método en el repositorio para buscar el user por id
-
-  const user = await User.findById(userId);
-  const cart = new ShoppingCart({ user: user });
-
+  const cart = new ShoppingCart({ email: userId });
   return await cartRepository.create(cart);
 }
 

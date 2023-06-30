@@ -19,6 +19,19 @@ const createUser = (req, res) => {
         })
 }
 
+const validateEmail = (req, res) => {
+    const username = req.body.username;
+    const code = req.body.code; 
+
+    userService.verifyEmail(username, code)
+        .then(req => {
+            res.status(200).json(req)
+        })
+        .catch(error => {
+            res.status(500).json({ error: error.message });
+        })
+}
+
 const logIn = (req, res) => {
     userService.logIn(req.body)
         .then(user => {
@@ -30,4 +43,4 @@ const logIn = (req, res) => {
 }
 
 
-module.exports = { createUser, findAll, logIn };
+module.exports = { createUser, findAll, logIn, validateEmail };

@@ -1,7 +1,7 @@
 import { Product } from "./product";
 
 export interface ShoppingCart {
-  _id?: any;
+  email: string | null;
   products: Product[];
   subTotal: number;
 }
