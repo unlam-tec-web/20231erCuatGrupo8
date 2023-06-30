@@ -36,7 +36,7 @@ export class LoginComponent {
       email: new FormControl('', [Validators.email, Validators.required]),
       password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\^$*.[\]{}()\?\-"!@#%&/\\,><':;\|_~`+=])[^\s](?=.*[^\s])[\S\s]{8,}$/)]),
     }
-    
+
     );
     this.authService.isLog = of("aca");
   }
@@ -49,17 +49,19 @@ export class LoginComponent {
     }
 
     this.loading = true // Para anular el boton y mostrar efecto de enviar la petición
-    
+
     // Suscribe a la respuesta de la petición del servicio
     // https://rxjs.dev/guide/observable
     this.authService.signUp(this.formSignUp.value).subscribe(
       {
         next: (res: any) => {
-          console.log(res.nombre, res.email)
-          this.authService.isLog = of(res.email);
-          console.log(this.authService.isLog)
+          localStorage.setItem('email', res.email)
+          localStorage.setItem('usuarme', res.nombre)
           this.toastr.success(`Sesion iniciada`);
           this.router.navigate(['/']);
+          setTimeout(() => {
+            location.reload()
+          }, 1500)
         },
         error: (err: any) => {
           console.log(err);

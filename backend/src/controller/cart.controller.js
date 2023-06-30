@@ -7,7 +7,6 @@ const getCart = async (req, res) => {
 
     // const ID = req.body;
     const CART = await cartService.findById(ID)
-    // console.log(CART);
     res.status(200).json(CART);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -20,8 +19,6 @@ const addProduct = async (req, res) => {
     console.log(req.body.userId)
     const USER_ID = req.body.userId
     const PRODUCT_ID = req.body.id
-    // console.log(PRODUCT_ID)
-    // const { userId, productId }  = req.body;
 
     const PRODUCT = await cartService.addProduct(PRODUCT_ID, USER_ID);
 

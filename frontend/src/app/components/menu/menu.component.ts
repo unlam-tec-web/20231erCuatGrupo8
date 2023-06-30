@@ -1,5 +1,6 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { of } from 'rxjs';
 
 
@@ -8,24 +9,17 @@ import { of } from 'rxjs';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css'],
 })
+
 export class MenuComponent {
   constructor(private authService: AuthService) {
-    this.authService.isLog.subscribe(
-      {
-        next: (estado) => {
-          this.loggedIn = estado
-        }
-        ,
-        error: () => {
-          this.loggedIn = ""
-        }
-      }
-    )
+
   }
-  public loggedIn: String = "";
+  public loggedIn = localStorage.getItem('usuarme')? true: false
 
 
   logout(): void {
-    this.authService.isLog = of("")
+    localStorage.removeItem('email')
+    localStorage.removeItem('usuarme')
+    location.reload()
   }
 }

@@ -3,7 +3,6 @@ const { userService } = require("../service/user.service");
 const findAll = async (req, res) => {
     try {
         const USERS = await userService.findAllUsers();
-        console.log(USERS);
         res.status(200).json(USERS);
     } catch (error) {
         res.status(500).json({ error: error.message });
