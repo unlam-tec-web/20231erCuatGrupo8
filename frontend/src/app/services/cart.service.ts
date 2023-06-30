@@ -22,24 +22,12 @@ export class CartService {
     // BehaviorSubject es un tipo de Observable que permite acceder al valor por BehaviorSubject.value
     this.shoppingCart$ = new BehaviorSubject<ShoppingCart>({ products: [], subTotal: 0 });
     this.getShoppingCart();
-    this.authService.isLog.subscribe(
-      {
-        next: (estado) => {
-          console.log(estado)
-          this.loggedIn = estado
-        }
-        ,
-        error: () => {
-          this.loggedIn = ""
-        }
-      }
-    )
   }
   public loggedIn: String = "";
 
   private getShoppingCart() {
     // FIX: pasar el user id....
-    this.httpClient.get<ShoppingCart>(API_URLS.CART.VIEW + `/aaaa`)
+    this.httpClient.get<ShoppingCart>(API_URLS.CART.VIEW + localStorage.getItem('email'))
       .subscribe(
         {
           next: (shoppingCart: ShoppingCart) => {
@@ -62,7 +50,7 @@ export class CartService {
 
   addProduct(product: Product): void {
     console.log(this.loggedIn)
-    this.httpClient.post<Product>(API_URLS.CART.ADD_PRODUCT, { id: product._id, userId: this.loggedIn})
+    this.httpClient.post<Product>(API_URLS.CART.ADD_PRODUCT, { id: product._id, userId: localStorage.getItem('email')})
       .subscribe(
         {
           next: (product: Product) => {
@@ -78,8 +66,7 @@ export class CartService {
             );
           },
           error: (err: any) => {
-            console.error('Error: ', err)
-            this.toastr.error('Ya está en el carrito.');
+            this.toastr.error(err.error.error);
           }
         }
       );
@@ -111,7 +98,7 @@ export class CartService {
 
   clearCart() {
     // TODO: habría que obtener el id de usuario de la sessión/jwt, etc
-    this.httpClient.post<ShoppingCart>(API_URLS.CART.CLEAR, { id: "HARCODEADO" })
+    this.httpClient.post<ShoppingCart>(API_URLS.CART.CLEAR, { id: localStorage.getItem('email') })
       .subscribe(
         {
           next: (cart: ShoppingCart) => {

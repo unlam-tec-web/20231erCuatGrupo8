@@ -25,21 +25,29 @@ const findById = async (id) => {
 const addProduct = async (productId, userId) => {
   // TODO: IDEM lógica para determinar que el carrito es del usuario logueado
   // o no te lo dejo agregar
-
+  console.log("1")
   const cart = await cartRepository.findById(userId);
+  console.log("2")
   const product = await productRepository.buscarProducto(productId);
-
-  if (!cart || !product) {
-    throw new Error("Carrito o producto inválido");
+  console.log("3")
+  console.log("cart -> ", cart)
+  console.log("product -> ", product)
+  if (!cart) {
+    cart = createCart(userId)
   }
 
-  if(alreadyInCart(cart, productId)) {
+  if (!product) {
+    throw new Error("Carrito o producto inválido");
+  }
+  console.log("Paso por aca")
+  if (alreadyInCart(cart, productId)) {
     throw new Error("Ya tenés ese producto en el carrito");
   }
 
   cart.products = [...cart.products, product]
 
   await cartRepository.update(cart);
+  console.log("antes del return")
   return product
 }
 
@@ -53,7 +61,7 @@ const removeProduct = async (productId, userId) => {
     throw new Error("Carrito o producto inválido");
   }
 
-  if(!alreadyInCart(cart, productId)) {
+  if (!alreadyInCart(cart, productId)) {
     throw new Error("No tenés ese vehículo");
   }
 
