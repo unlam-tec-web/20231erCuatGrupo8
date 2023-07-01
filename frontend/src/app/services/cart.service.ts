@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ShoppingCart } from '../models/cart';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +16,21 @@ export class CartService {
 
   constructor(
     private httpClient: HttpClient,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthService
   ) {
     // BehaviorSubject es un tipo de Observable que permite acceder al valor por BehaviorSubject.value
-    this.shoppingCart$ = new BehaviorSubject<ShoppingCart>({ products: [], subTotal: 0 });
+    this.shoppingCart$ = new BehaviorSubject<ShoppingCart>({ email: localStorage.getItem("email"), products: [], subTotal: 0 });
     this.getShoppingCart();
   }
+  public loggedIn: String = "";
 
   private getShoppingCart() {
-    // FIX: pasar el user id....
-    this.httpClient.get<ShoppingCart>(API_URLS.CART.VIEW + `/aaaa`)
+    if(!this.authService.loggedIn()) {
+      return
+    }
+
+    this.httpClient.get<ShoppingCart>(API_URLS.CART.VIEW + `?cart=${localStorage.getItem('email')}`)
       .subscribe(
         {
           next: (shoppingCart: ShoppingCart) => {
@@ -46,7 +52,11 @@ export class CartService {
   }
 
   addProduct(product: Product): void {
-    this.httpClient.post<Product>(API_URLS.CART.ADD_PRODUCT, { id: product._id })
+    if(!this.authService.loggedIn()) {
+      this.toastr.error("Necesitás una cuenta para usar el carrito.");
+      return
+    }
+    this.httpClient.post<Product>(API_URLS.CART.ADD_PRODUCT, { id: product._id, userId: localStorage.getItem('email')})
       .subscribe(
         {
           next: (product: Product) => {
@@ -62,16 +72,18 @@ export class CartService {
             );
           },
           error: (err: any) => {
-            console.error('Error: ', err)
-            this.toastr.error('Ya está en el carrito.');
+            this.toastr.error(err.error.error);
           }
         }
       );
   }
 
   removeProduct(product: Product) {
-    // TODO: hay que mandarle también el id del user/carrito
-    this.httpClient.post<Product>(API_URLS.CART.REMOVE_PRODUCT, { id: product._id })
+    if(!this.authService.loggedIn()) {
+      this.toastr.error("Necesitás una cuenta para usar el carrito.");
+      return
+    }
+    this.httpClient.post<Product>(API_URLS.CART.REMOVE_PRODUCT, { id: product._id, userId: localStorage.getItem('email') })
       .subscribe(
         {
           next: (product: Product) => {
@@ -94,8 +106,11 @@ export class CartService {
   }
 
   clearCart() {
-    // TODO: habría que obtener el id de usuario de la sessión/jwt, etc
-    this.httpClient.post<ShoppingCart>(API_URLS.CART.CLEAR, { id: "HARCODEADO" })
+    if(!this.authService.loggedIn()) {
+      this.toastr.error("Necesitás una cuenta para usar el carrito.");
+      return
+    }
+    this.httpClient.post<ShoppingCart>(API_URLS.CART.CLEAR, { id: localStorage.getItem('email') })
       .subscribe(
         {
           next: (cart: ShoppingCart) => {

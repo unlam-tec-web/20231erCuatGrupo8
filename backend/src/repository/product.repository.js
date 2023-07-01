@@ -1,20 +1,20 @@
 const Product = require("../model/product.model");
 
-const buscarTodos = async () => {
-  return await Product.find({});
+const buscarTodos = () => {
+  return Product.find({});
 }
 
-const buscarProducto = async (id) => {
-  return await Product.findById(id);
+const buscarProducto = (id) => {
+  return Product.findById(id);
 }
 
-const guardarProducto = async (product) => {
-  return await Product.create(product);
+const guardarProducto = (product) => {
+  return Product.create(product);
 }
 
-const eliminarProducto = async (id) => {
-  await Product.findById(id); // busco el producto
-  await Product.findOneAndRemove({ _id: id }) // elimino el producto
+const eliminarProducto = (id) => {
+  Product.findById(id); // busco el producto
+  return  Product.findOneAndRemove({ _id: id }) // elimino el producto
 }
 
 const productRepository = { buscarTodos, buscarProducto, guardarProducto, eliminarProducto };

@@ -3,6 +3,9 @@ import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators
 import { PasswordMatchValidator } from '../signup/password-match.validator';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { of } from 'rxjs';
+
 
 @Component({
   selector: 'app-login',
@@ -12,56 +15,54 @@ import { Router } from '@angular/router';
 
 export class LoginComponent {
   formSignUp!: FormGroup;
-  wasSubmitted: boolean = false; // Flag para saber si el usuario envió el formulario
-  loading: boolean = false;
+  validating: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
 
-    // Regex contraseña: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$
-    // 1 minúscula -> (?=.*[a-z])
-    // 1 mayuscula -> (?=.*[A-Z])
-    // 1 dígito -> (?=.*\d)
-    // Mínimo 8 caracteres -> (?=^.{8,}$)
-    // No permite espacios en blanco
-
+    // Longitud mínima de caracteres 8
+    // Contiene al menos 1 número
+    // Contiene al menos una letra minúscula
+    // Contiene al menos una letra mayúscula
+    // Contiene al menos 1 carácter especial del siguiente conjunto o un carácter de espacio que no es inicial ni final
     this.formSignUp = this.formBuilder.group({
       email: new FormControl('', [Validators.email, Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$/)]),
-    },
-    { validators: PasswordMatchValidator('password', 'passwordConfirm') } as AbstractControlOptions
+      password: new FormControl('', [Validators.required]),
+    }
+
     );
   }
 
   onSubmit() {
-    this.wasSubmitted = true;
-
     if (!this.formSignUp.valid) {
       return
     }
+    this.validating = true
 
-    this.loading = true // Para anular el boton y mostrar efecto de enviar la petición
-
-    // Suscribe a la respuesta de la petición del servicio
-    // https://rxjs.dev/guide/observable
     this.authService.signUp(this.formSignUp.value).subscribe(
       {
-        // Si responde ok la petición
         next: (res: any) => {
-          alert('Registro exitoso. Verifique el mail para iniciar sesión.');
+          localStorage.setItem('email', res.email)
+          localStorage.setItem('usuarme', res.nombre)
+          this.toastr.success(`Sesion iniciada`);
           this.router.navigate(['/']);
+          setTimeout(() => {
+            location.reload()
+            this.validating = false;
+          }, 1500)
         },
-        // Si hay error en la petición
-        error: (err: any) => { alert('El email ya existe. Debe utilizar otro')},
-        // complete: () => { }
+        error: (err: any) => {
+          console.log(err);
+          this.toastr.error(err.error.error);
+            this.validating = false;
+        },
       }
     )
-
-    this.loading = false; // Anula spinner
   }
 }

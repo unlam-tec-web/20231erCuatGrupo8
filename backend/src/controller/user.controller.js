@@ -1,27 +1,37 @@
 const { userService } = require("../service/user.service");
 
-const findAll = async (req, res) => {
-    try {
-        const USERS = await userService.findAllUsers();
-        console.log(USERS);
-        res.status(200).json(USERS);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+const createUser = (req, res) => {
+    userService.createUser(req.body)
+        .then(req => {
+            res.status(200).json(req)
+        })
+        .catch(error => {
+            res.status(500).json({ error: error.message });
+        })
 }
 
-const createUser = async (req, res) => {
-    try {
-        // Obtengo los datos del cuerpo de la solicitud
-        const USER = req.body;
+const validateEmail = (req, res) => {
+    const username = req.body.email;
+    const code = req.body.code; 
 
-        // Creo el usuario utilizando el servicio
-        await userService.createUser(USER);
-        console.log(USER);
-        res.status(200).json(USER);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+    userService.verifyEmail(username, code)
+        .then(req => {
+            res.status(200).json(req)
+        })
+        .catch(error => {
+            res.status(500).json({ error: error.message });
+        })
 }
 
-module.exports = { createUser, findAll };
+const logIn = (req, res) => {
+    userService.logIn(req.body)
+        .then(user => {
+            res.status(200).json(user)
+        })
+        .catch(error => {
+            res.status(500).json({ error: error.message });
+        })
+}
+
+
+module.exports = { createUser, logIn, validateEmail };

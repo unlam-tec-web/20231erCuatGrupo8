@@ -1,14 +1,15 @@
+
 <div class="row align-items-center justify-content-center mx-0 bg-light">
     <div class="col-md-7 d-none d-md-block px-0">
         <img src="./assets/img/signup.jpg" class="img-signup" alt="Persona manejando">
     </div>
     <div class="col-md-5 col-sm-12 px-4">
 
-        <h2 class="mt-1 fw-bold">Ingreso</h2>
+        <h2 class="mt-1 fw-bold">Validar Email</h2>
 
         <p class="mt-1">Tu próximo auto a un paso...</p>
 
-        <form class="needs-validation" [formGroup]="formSignUp" novalidate>
+        <form class="needs-validation" [formGroup]="formValidateMail" novalidate>
 
             <div class="mb-3">
               <div class="input-group">
@@ -18,33 +19,32 @@
                 <input type="text" class="form-control" id="email" formControlName="email" placeholder="Email">
               </div>
               <div class="text-danger"
-                *ngIf="formSignUp.get('email')?.hasError('required') && formSignUp.get('email')?.touched">
+                *ngIf="formValidateMail.get('email')?.hasError('required') && formValidateMail.get('email')?.touched">
                 <span>El email no puede estar vacío.</span>
               </div>
               <div class="text-danger"
-                *ngIf="formSignUp.get('email')?.hasError('email') && formSignUp.get('email')?.touched">
-                <span>El formato de email es inválido.</span>
+                *ngIf="formValidateMail.get('email')?.hasError('email') && formValidateMail.get('email')?.touched">
+                <span>El formato de email no es válido.</span>
               </div>
-            </div>
-
+              </div>
 
             <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">
                     <i class="bi bi-lock-fill"></i>
                 </span>
-                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Contraseña">
+                <input type="text" class="form-control" id="code" formControlName="code" placeholder="Código">
               </div>
-              <div class="text-danger mb-0"
-                *ngIf="formSignUp.get('password')?.hasError('required') && formSignUp.get('password')?.touched">
-                <span>La contraseña no puede estar vacía. </span>
+              <div class="text-danger"
+                *ngIf="formValidateMail.get('code')?.hasError('required') && formValidateMail.get('code')?.touched">
+                <span>El código no puede estar vacío.</span>
               </div>
 
             <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-primary" [disabled]="formSignUp.invalid || validating" (click)="onSubmit();">
+                <button class="btn btn-primary" [disabled]="formValidateMail.invalid || validating" (click)="onSubmit();">
                     <span *ngIf="validating" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     <span class="visually-hidden">Validando...</span>
-                    Ingresar
+                    Verificar código
                 </button>
             </div>
             </div>

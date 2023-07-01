@@ -36,7 +36,13 @@
               </div>
               <div class="text-danger"
                 *ngIf="formSignUp.get('password')?.hasError('pattern') && formSignUp.get('password')?.touched">
-                <span>Debe contener al menos 1 mayúscula, 1 minúscula, 1 dígito y longitud mínima de 8 caracteres.</span>
+                <span>
+                  Longitud mínima de caracteres 8 <br>
+                  Contiene al menos 1 número <br>
+                  Contiene al menos una letra minúscula <br>
+                  Contiene al menos una letra mayúscula <br>
+                  Contiene al menos 1 carácter especial del siguiente conjunto o un carácter de espacio que no es inicial ni final <br>
+                </span>
               </div>
               <div class="text-danger"
                 *ngIf="formSignUp.get('password')?.hasError('required') && formSignUp.get('password')?.touched">
@@ -97,8 +103,9 @@
             </div>
 
             <div class="d-grid gap-2">
-                <button class="btn btn-primary" type="submit" [disabled]="formSignUp.invalid">
-                  <!--<span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                <button class="btn btn-primary" type="submit" [disabled]="formSignUp.invalid || validating">
+                    <span *ngIf="validating" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span class="visually-hidden">Validando...</span>
                     Registrarse
                 </button>
                 

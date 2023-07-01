@@ -14,6 +14,8 @@ export class HeaderComponent {
     private cartService: CartService
   ) { }
 
+  public loggedIn = localStorage.getItem('usuarme') ? true : false
+  
   ngOnInit() {
     this.cartCount$ = this.cartService.getCount();
   }

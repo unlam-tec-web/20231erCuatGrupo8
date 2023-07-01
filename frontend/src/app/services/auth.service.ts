@@ -1,30 +1,44 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-// TODO Para mock del backend. Simula petición exitosa .Cuando tengamos el backend reemplazar la url
-const SIGNUP_URL = 'https://dummyjson.com/http/200';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  public url = 'http://localhost:3000/api/user';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  // Registrar usuario
   signUp(user: UserRegisterDto): Observable<any> {
-    return this.httpClient.post(SIGNUP_URL, user)
+    return this.http.post(this.url + '/login', user);
+  }
+
+  validateEmail(userCode: UserCode) {
+    return this.http.post(this.url + '/verify', userCode);
+  }
+
+  loggedIn(): boolean {
+    return localStorage.getItem('email') ? true : false
+  }
+
+  getUser(): String | null {
+    return localStorage.getItem('email');
   }
 }
 
-// TODO: extraer a types/interfaces/models etc
-export interface UserRegisterDto {
-    email: string;
-    password: string;
-    passwordConfirm: string;
-    firstName: string;
-    lastName: string;
-    address: string;
+interface UserRegisterDto {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  firstName: string;
+  lastName: string;
+  address: string;
 }
 
+interface UserCode {
+  username: string;
+  code: string;
+}

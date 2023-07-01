@@ -23,6 +23,7 @@ import { ButtonModule } from '@coreui/angular';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductListComponent } from './views/product-list/product-list.component';
 import { ProductDetailComponent } from './views/product-detail/product-detail.component';
+import { ValidatemailComponent } from './views/validatemail/validatemail.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ProductDetailComponent } from './views/product-detail/product-detail.co
     ProductCardComponent,
     ProductListComponent,
     ProductDetailComponent,
+    ValidatemailComponent,
   ],
   imports: [
     BrowserModule,
