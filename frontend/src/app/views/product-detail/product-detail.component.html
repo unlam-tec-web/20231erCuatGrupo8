@@ -5,9 +5,27 @@
         <div class="row">
           <div class="col-md-6 my-auto">
               <div class="text-center p-4">
-                <img class="img-fluid rounded" src="{{product.img}}" />
+                <a [cModalToggle]="product.img">
+                  <img class="img-fluid rounded" src="{{product.img}}" role="button" />
+                </a>
               </div>
           </div>
+              <!-- modal con COREUI -->
+              <c-modal #verticallyCenteredModal alignment="center" id="{{product.img}}">
+                <c-modal-header class="bg-secondary">
+                  <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+                </c-modal-header>
+                <c-modal-body>
+                  <div class="d-flex justify-content-center">
+                    <img src="{{product.img}}" class="img-fluid img-responsive">
+                  </div>
+                </c-modal-body>
+                <c-modal-footer class="bg-secondary">
+                  <button [cModalToggle]="verticallyCenteredModal.id" cButton color="dark"
+                    variant="ghost">Cerrar</button>
+                </c-modal-footer>
+              </c-modal>
+              <!-- FIN modal con COREUI -->
 
           <div class="col-md-6">
             <div class="p-4">
