@@ -53,8 +53,6 @@ export class CrearProductoComponent implements OnInit {
       console.log(error);
       this.productoForm.reset();
     }); 
-    
-
   }
 
 }

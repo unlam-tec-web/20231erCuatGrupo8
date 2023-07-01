@@ -11,7 +11,7 @@ const createUser = (req, res) => {
 }
 
 const validateEmail = (req, res) => {
-    const username = req.body.username;
+    const username = req.body.email;
     const code = req.body.code; 
 
     userService.verifyEmail(username, code)

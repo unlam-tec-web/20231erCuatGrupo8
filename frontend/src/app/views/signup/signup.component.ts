@@ -15,6 +15,7 @@ import { Md5 } from 'ts-md5';
 export class SignupComponent implements OnInit {
   public formSignUp: FormGroup;
   public md5: any = new Md5();
+  validating: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -38,6 +39,7 @@ export class SignupComponent implements OnInit {
 
 
   createUser() {
+    this.validating = true;
     //Obtengo los datos del form
     const USER: User = {
       email: this.formSignUp.get('email')?.value,
@@ -49,12 +51,14 @@ export class SignupComponent implements OnInit {
 
     //guardo el usuario en la bd
     this._userService.saveUser(USER).subscribe(data => {
-      this.toastr.success('Felicitaciones!', 'Se registro correctamente'); //cartel exito
-      this.router.navigate(['/']);
+      this.toastr.success('Felicitaciones!', 'Se registro correctamente, debe verificar su email'); //cartel exito
+      this.router.navigate(['/validaremail']);
+      this.validating = false;
     }, error => {
       console.log(error);
       this.toastr.error('Ups!', 'Ocurrio un error');
       this.formSignUp.reset();
+      this.validating = false;
     });
   }
 }

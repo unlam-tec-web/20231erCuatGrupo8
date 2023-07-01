@@ -15,8 +15,7 @@ import { of } from 'rxjs';
 
 export class LoginComponent {
   formSignUp!: FormGroup;
-  wasSubmitted: boolean = false; // Flag para saber si el usuario envió el formulario
-  loading: boolean = false;
+  validating: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,23 +33,18 @@ export class LoginComponent {
     // Contiene al menos 1 carácter especial del siguiente conjunto o un carácter de espacio que no es inicial ni final
     this.formSignUp = this.formBuilder.group({
       email: new FormControl('', [Validators.email, Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\^$*.[\]{}()\?\-"!@#%&/\\,><':;\|_~`+=])[^\s](?=.*[^\s])[\S\s]{8,}$/)]),
+      password: new FormControl('', [Validators.required]),
     }
 
     );
   }
 
   onSubmit() {
-    this.wasSubmitted = true;
-
     if (!this.formSignUp.valid) {
       return
     }
+    this.validating = true
 
-    this.loading = true // Para anular el boton y mostrar efecto de enviar la petición
-
-    // Suscribe a la respuesta de la petición del servicio
-    // https://rxjs.dev/guide/observable
     this.authService.signUp(this.formSignUp.value).subscribe(
       {
         next: (res: any) => {
@@ -60,16 +54,15 @@ export class LoginComponent {
           this.router.navigate(['/']);
           setTimeout(() => {
             location.reload()
+            this.validating = false;
           }, 1500)
         },
         error: (err: any) => {
           console.log(err);
           this.toastr.error(err.error.error);
+            this.validating = false;
         },
-        // complete: () => { }
       }
     )
-
-    this.loading = false; // Anula spinner
   }
 }

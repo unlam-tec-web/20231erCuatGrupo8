@@ -68,7 +68,7 @@ function verifyEmail(username, verificationCode) {
         console.error(err);
         reject(err); // Rechazar la promesa en caso de error
       } else {
-        console.log(result);
+        // console.log(result);
         resolve(result); // Resolver la promesa en caso de éxito
       }
     });

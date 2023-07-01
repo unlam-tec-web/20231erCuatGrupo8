@@ -17,6 +17,7 @@ export class CartService {
   constructor(
     private httpClient: HttpClient,
     private toastr: ToastrService,
+    private authService: AuthService
   ) {
     // BehaviorSubject es un tipo de Observable que permite acceder al valor por BehaviorSubject.value
     this.shoppingCart$ = new BehaviorSubject<ShoppingCart>({ email: localStorage.getItem("email"), products: [], subTotal: 0 });
@@ -25,6 +26,10 @@ export class CartService {
   public loggedIn: String = "";
 
   private getShoppingCart() {
+    if(!this.authService.loggedIn()) {
+      return
+    }
+
     this.httpClient.get<ShoppingCart>(API_URLS.CART.VIEW + `?cart=${localStorage.getItem('email')}`)
       .subscribe(
         {
@@ -47,7 +52,10 @@ export class CartService {
   }
 
   addProduct(product: Product): void {
-    // console.log(this.loggedIn)
+    if(!this.authService.loggedIn()) {
+      this.toastr.error("Necesitás una cuenta para usar el carrito.");
+      return
+    }
     this.httpClient.post<Product>(API_URLS.CART.ADD_PRODUCT, { id: product._id, userId: localStorage.getItem('email')})
       .subscribe(
         {
@@ -71,6 +79,10 @@ export class CartService {
   }
 
   removeProduct(product: Product) {
+    if(!this.authService.loggedIn()) {
+      this.toastr.error("Necesitás una cuenta para usar el carrito.");
+      return
+    }
     this.httpClient.post<Product>(API_URLS.CART.REMOVE_PRODUCT, { id: product._id, userId: localStorage.getItem('email') })
       .subscribe(
         {
@@ -94,6 +106,10 @@ export class CartService {
   }
 
   clearCart() {
+    if(!this.authService.loggedIn()) {
+      this.toastr.error("Necesitás una cuenta para usar el carrito.");
+      return
+    }
     this.httpClient.post<ShoppingCart>(API_URLS.CART.CLEAR, { id: localStorage.getItem('email') })
       .subscribe(
         {

@@ -10,12 +10,14 @@ import { CrearProductoComponent } from './components/crear-producto/crear-produc
 import { ListarProductosComponent } from './components/listar-productos/listar-productos.component';
 import { ProductListComponent } from './views/product-list/product-list.component';
 import { ProductDetailComponent } from './views/product-detail/product-detail.component';
+import { ValidatemailComponent } from './views/validatemail/validatemail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'registro', component: SignupComponent },
   { path: 'carrito', component: CartComponent },
   { path: 'ingreso', component: LoginComponent },
+  { path: 'validarmail', component: ValidatemailComponent },
   { path: 'crear-producto', component: CrearProductoComponent },
   { path: 'listar-producto', component: ListarProductosComponent },
   { path: 'publicaciones', component: ProductListComponent },
